@@ -1,0 +1,15 @@
+config-version: 1
+storage:
+  mysql:
+    use: true
+    ip: "localhost"
+    port: 3306
+    database: "magmapay"
+    username: "root"
+    password: "password"
+  sqlite:
+    use: true
+    url: "jdbc:sqlite:plugins/MagmaPay/MagmaPay.db"
+messages:
+  general:
+    header: "&c&l==========================================="
