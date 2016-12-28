@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 
 public class CreateUserManager {
-    private HashMap<Player, CreateUserStep> createUserMap;
+    private HashMap<Player, CreateUserProgressObject> createUserMap;
 
     public CreateUserManager() {
         this.createUserMap = new HashMap<>();
@@ -15,7 +15,7 @@ public class CreateUserManager {
         return createUserMap.containsKey(p);
     }
 
-    public CreateUserStep getPlayerStatus(Player p) {
+    public CreateUserProgressObject getPlayerObject(Player p) {
         if (isInMap(p)) {
             return createUserMap.get(p);
         }
@@ -25,7 +25,7 @@ public class CreateUserManager {
 
     public boolean addPlayer(Player p) {
         if (!isInMap(p)) {
-            createUserMap.put(p, CreateUserStep.EMAIL);
+            createUserMap.put(p, new CreateUserProgressObject());
 
             return true;
         }
@@ -44,15 +44,14 @@ public class CreateUserManager {
     }
 
     public CreateUserStep updatePlayer(Player p) {
-        CreateUserStep nextStep = getPlayerStatus(p).next();
+        CreateUserProgressObject userObject = getPlayerObject(p);
+        CreateUserStep nextStep = userObject.getUserStep().next();
 
         if (nextStep == CreateUserStep.values()[0]) {
-            removePlayer(p);
-
             return null;
         }
 
-        createUserMap.put(p, nextStep);
+        userObject.setUserStep(nextStep);
         return nextStep;
     }
 }
