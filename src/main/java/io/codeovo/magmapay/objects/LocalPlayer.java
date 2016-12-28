@@ -4,7 +4,10 @@ public class LocalPlayer {
     private String stripeToken;
     private String pinHash;
 
-    public LocalPlayer() {}
+    public LocalPlayer() {
+        this.stripeToken = null;
+        this.pinHash = null;
+    }
 
     public LocalPlayer(String stripeToken, String pinHash) {
         this.stripeToken = stripeToken;

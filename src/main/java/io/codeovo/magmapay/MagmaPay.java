@@ -2,6 +2,7 @@ package io.codeovo.magmapay;
 
 import io.codeovo.magmapay.cache.CacheManager;
 import io.codeovo.magmapay.config.LocalConfig;
+import io.codeovo.magmapay.listeners.PlayerListener;
 import io.codeovo.magmapay.storage.Storage;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +17,8 @@ public class MagmaPay extends JavaPlugin {
     public void onEnable() {
         getLogger().info("MagmaPay - Enabling...");
         magmaPay = this;
+
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         cacheManager = new CacheManager(this);
         localConfig = new LocalConfig(this);
