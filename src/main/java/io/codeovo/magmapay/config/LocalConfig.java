@@ -2,6 +2,8 @@ package io.codeovo.magmapay.config;
 
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.storage.StorageType;
+import io.codeovo.magmapay.utils.GeneralUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class LocalConfig {
@@ -19,6 +21,9 @@ public class LocalConfig {
     private String mysqlPassword;
 
     private String sqliteUrl;
+
+    private String messageCreateUserEmail;
+    private String messageCreateUserPin;
 
     public LocalConfig(MagmaPay magmaPay) {
         magmaPay.saveDefaultConfig();
@@ -47,6 +52,9 @@ public class LocalConfig {
 
             sqliteUrl = config.getString("storage.sqlite.url");
         }
+
+        messageCreateUserEmail = GeneralUtils.colour(config.getString("messages.create-user.enter-email"));
+        messageCreateUserPin = GeneralUtils.colour(config.getString("messages.create-user.enter-pin"));
     }
 
     public StorageType getStorageType() { return storageType; }
@@ -62,4 +70,8 @@ public class LocalConfig {
     public String getMysqlPassword() { return mysqlPassword; }
 
     public String getSqliteUrl() { return sqliteUrl; }
+
+    public String getMessageCreateUserEmail() { return messageCreateUserEmail; }
+
+    public String getMessageCreateUserPin() { return messageCreateUserPin; }
 }

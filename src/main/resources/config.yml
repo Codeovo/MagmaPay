@@ -11,5 +11,6 @@ storage:
     use: true
     url: "jdbc:sqlite:plugins/MagmaPay/MagmaPay.db"
 messages:
-  general:
-    header: "&c&l==========================================="
+  create-user:
+    enter-email: "&8MagmaPay &7>> &8Enter your e-mail address:"
+    enter-pin: "&8MagmaPay &7>> &8Enter a 4-digit pin:"
