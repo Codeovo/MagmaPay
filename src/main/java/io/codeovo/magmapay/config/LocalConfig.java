@@ -22,6 +22,8 @@ public class LocalConfig {
 
     private String sqliteUrl;
 
+    private String stripeApiKey;
+
     private String messageCreateUserEmail;
     private String messageCreateUserPin;
     private String messageCreateUserCreated;
@@ -57,6 +59,8 @@ public class LocalConfig {
             sqliteUrl = config.getString("storage.sqlite.url");
         }
 
+        stripeApiKey = config.getString("methods.stripe.api-key");
+
         messageCreateUserEmail = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.enter-email"));
         messageCreateUserPin = GeneralUtils
@@ -84,6 +88,8 @@ public class LocalConfig {
     public String getMysqlPassword() { return mysqlPassword; }
 
     public String getSqliteUrl() { return sqliteUrl; }
+
+    public String getStripeApiKey() { return stripeApiKey; }
 
     public String getMessageCreateUserEmail() { return messageCreateUserEmail; }
 

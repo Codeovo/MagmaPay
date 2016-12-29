@@ -3,6 +3,7 @@ package io.codeovo.magmapay;
 import io.codeovo.magmapay.cache.CacheManager;
 import io.codeovo.magmapay.config.LocalConfig;
 import io.codeovo.magmapay.listeners.PlayerListener;
+import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.storage.Storage;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -12,6 +13,8 @@ public class MagmaPay extends JavaPlugin {
     private CacheManager cacheManager;
     private LocalConfig localConfig;
     private Storage localStorage;
+
+    private StripeImplementation stripeImplementation;
 
     @Override
     public void onEnable() {
@@ -23,6 +26,8 @@ public class MagmaPay extends JavaPlugin {
         cacheManager = new CacheManager(this);
         localConfig = new LocalConfig(this);
         localStorage = new Storage(this);
+
+        stripeImplementation = new StripeImplementation(this);
 
         getLogger().info("MagmaPay - Enabled.");
     }
@@ -43,4 +48,6 @@ public class MagmaPay extends JavaPlugin {
     public LocalConfig getLocalConfig() { return localConfig; }
 
     public Storage getLocalStorage() { return localStorage; }
+
+    public StripeImplementation getStripeImplementation() { return stripeImplementation; }
 }
