@@ -1,7 +1,7 @@
 config-version: 1
 storage:
   mysql:
-    use: true
+    use: false
     ip: "localhost"
     port: 3306
     database: "magmapay"
