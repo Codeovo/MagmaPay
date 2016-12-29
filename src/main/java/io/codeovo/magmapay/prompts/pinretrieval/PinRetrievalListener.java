@@ -1,4 +1,4 @@
-package io.codeovo.magmapay.prompts.createuser;
+package io.codeovo.magmapay.prompts.pinretrieval;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,26 +9,26 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Iterator;
 
-public class CreateUserListener implements Listener {
-    private CreateUserManager createUserManager;
+public class PinRetrievalListener implements Listener {
+    private PinRetrievalManager pinRetrievalManager;
 
-    CreateUserListener(CreateUserManager createUserManager) {
-        this.createUserManager = createUserManager;
+    PinRetrievalListener(PinRetrievalManager pinRetrievalManager) {
+        this.pinRetrievalManager = pinRetrievalManager;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent e) {
-        if(createUserManager.isInMap(e.getPlayer())) {
+        if(pinRetrievalManager.isInList(e.getPlayer())) {
             e.setCancelled(true);
 
-            createUserManager.handleMessage(e.getPlayer(), e.getMessage());
+            pinRetrievalManager.handleMessage(e.getPlayer(), e.getMessage());
             return;
         }
 
         for(final Iterator<Player> it = e.getRecipients().iterator(); it.hasNext();) {
 
             final Player p = it.next();
-            if(createUserManager.isInMap(p)) {
+            if(pinRetrievalManager.isInList(p)) {
                 it.remove();
             }
         }
@@ -36,8 +36,8 @@ public class CreateUserListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        if(createUserManager.isInMap(e.getPlayer())) {
-            createUserManager.removePlayer(e.getPlayer());
+        if(pinRetrievalManager.isInList(e.getPlayer())) {
+            pinRetrievalManager.removePlayer(e.getPlayer());
         }
     }
 }

@@ -20,10 +20,9 @@ public class CreateUserManager {
 
     public CreateUserManager(MagmaPay magmaPay) {
         this.magmaPay = magmaPay;
+        this.createUserMap = new HashMap<>();
 
         Bukkit.getServer().getPluginManager().registerEvents(new CreateUserListener(this), magmaPay);
-
-        this.createUserMap = new HashMap<>();
     }
 
     void handleMessage(final Player p, final String message) {

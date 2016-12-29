@@ -24,3 +24,6 @@ messages:
       stripe-error: "&8MagmaPay &7>> &8An error occurred: &7<error>"
       invalid-email: "&8MagmaPay &7>> &8You entered an invalid email, creation cancelled."
       invalid-pin: "&8MagmaPay &7>> &8You entered an invalid pin, creation cancelled."
+  pin-retrieval:
+    prompts:
+      enter-pin: "&8MagmaPay &7>> &8You initiated a charge, enter your pin to confirm it:"
