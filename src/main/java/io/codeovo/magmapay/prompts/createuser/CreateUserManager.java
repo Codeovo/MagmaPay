@@ -67,9 +67,6 @@ public class CreateUserManager {
                                     | AuthenticationException | APIConnectionException e) {
                                 p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
                                         .replace("<error>", e.getMessage()));
-
-                                // REMOVE STACK PRINT LATER
-                                e.printStackTrace();
                             }
                         }
                     });
