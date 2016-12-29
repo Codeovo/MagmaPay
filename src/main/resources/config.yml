@@ -12,5 +12,10 @@ storage:
     url: "jdbc:sqlite:plugins/MagmaPay/MagmaPay.db"
 messages:
   create-user:
-    enter-email: "&8MagmaPay &7>> &8Enter your e-mail address:"
-    enter-pin: "&8MagmaPay &7>> &8Enter a 4-digit pin:"
+    prompts:
+      enter-email: "&8MagmaPay &7>> &8Enter your e-mail address:"
+      enter-pin: "&8MagmaPay &7>> &8Enter a 4-digit pin:"
+      user-created: "&8MagmaPay &7>> User created successfully."
+    errors:
+      invalid-email: "&8MagmaPay &7>> &8You entered an invalid email, creation cancelled."
+      invalid-pin: "&8MagmaPay &7>> &8You entered an invalid pin, creation cancelled."

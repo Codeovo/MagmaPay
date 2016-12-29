@@ -1,15 +1,25 @@
 package io.codeovo.magmapay.prompts.createuser;
 
+import io.codeovo.magmapay.MagmaPay;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class CreateUserManager {
+    private MagmaPay magmaPay;
+
     private HashMap<Player, CreateUserProgressObject> createUserMap;
 
-    public CreateUserManager() {
+    public CreateUserManager(MagmaPay magmaPay) {
+        this.magmaPay = magmaPay;
+
+        Bukkit.getServer().getPluginManager().registerEvents(new CreateUserListener(), magmaPay);
+
         this.createUserMap = new HashMap<>();
     }
+
+
 
     public boolean isInMap(Player p) {
         return createUserMap.containsKey(p);

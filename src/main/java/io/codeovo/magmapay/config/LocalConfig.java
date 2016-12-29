@@ -24,6 +24,10 @@ public class LocalConfig {
 
     private String messageCreateUserEmail;
     private String messageCreateUserPin;
+    private String messageCreateUserCreated;
+
+    private String messageCreateUserEmailError;
+    private String messageCreateUserPinError;
 
     public LocalConfig(MagmaPay magmaPay) {
         magmaPay.saveDefaultConfig();
@@ -53,8 +57,18 @@ public class LocalConfig {
             sqliteUrl = config.getString("storage.sqlite.url");
         }
 
-        messageCreateUserEmail = GeneralUtils.colour(config.getString("messages.create-user.enter-email"));
-        messageCreateUserPin = GeneralUtils.colour(config.getString("messages.create-user.enter-pin"));
+        messageCreateUserEmail = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-email"));
+        messageCreateUserPin = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-pin"));
+        messageCreateUserCreated = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.user-created"));
+
+
+        messageCreateUserEmailError = GeneralUtils
+                .colour(config.getString("messages.create-user.errors.invalid-email"));
+        messageCreateUserPinError = GeneralUtils
+                .colour(config.getString("messages.create-user.errors.invalid-pin"));
     }
 
     public StorageType getStorageType() { return storageType; }
@@ -74,4 +88,10 @@ public class LocalConfig {
     public String getMessageCreateUserEmail() { return messageCreateUserEmail; }
 
     public String getMessageCreateUserPin() { return messageCreateUserPin; }
+
+    public String getMessageCreateUserCreated() { return messageCreateUserCreated; }
+
+    public String getMessageCreateUserEmailError() { return messageCreateUserEmailError; }
+
+    public String getMessageCreateUserPinError() { return messageCreateUserPinError; }
 }
