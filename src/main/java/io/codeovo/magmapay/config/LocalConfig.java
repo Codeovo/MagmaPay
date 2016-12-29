@@ -26,6 +26,7 @@ public class LocalConfig {
 
     private String messageCreateUserEmail;
     private String messageCreateUserPin;
+    private String messageCreateUserCreating;
     private String messageCreateUserCreated;
 
     private String messageCreateUserEmailError;
@@ -65,6 +66,8 @@ public class LocalConfig {
                 .colour(config.getString("messages.create-user.prompts.enter-email"));
         messageCreateUserPin = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.enter-pin"));
+        messageCreateUserCreating = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.creating-user"));
         messageCreateUserCreated = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.user-created"));
 
@@ -94,6 +97,8 @@ public class LocalConfig {
     public String getMessageCreateUserEmail() { return messageCreateUserEmail; }
 
     public String getMessageCreateUserPin() { return messageCreateUserPin; }
+
+    public String getMessageCreateUserCreating() { return messageCreateUserCreating; }
 
     public String getMessageCreateUserCreated() { return messageCreateUserCreated; }
 
