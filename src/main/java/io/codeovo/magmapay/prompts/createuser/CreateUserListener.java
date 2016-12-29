@@ -21,6 +21,8 @@ public class CreateUserListener implements Listener {
             e.setCancelled(true);
 
 
+
+            return;
         }
 
         for(final Iterator<Player> it = e.getRecipients().iterator(); it.hasNext();) {

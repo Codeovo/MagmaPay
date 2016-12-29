@@ -10,6 +10,9 @@ storage:
   sqlite:
     use: true
     url: "jdbc:sqlite:plugins/MagmaPay/MagmaPay.db"
+methods:
+  stripe:
+    api-key: "xx"
 messages:
   create-user:
     prompts:
