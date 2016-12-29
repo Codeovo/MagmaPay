@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class CreateUserListener implements Listener {
     private CreateUserManager createUserManager;
 
-    public CreateUserListener(CreateUserManager createUserManager) {
+    CreateUserListener(CreateUserManager createUserManager) {
         this.createUserManager = createUserManager;
     }
 
@@ -20,8 +20,7 @@ public class CreateUserListener implements Listener {
         if(createUserManager.isInMap(e.getPlayer())) {
             e.setCancelled(true);
 
-
-
+            createUserManager.handleMessage(e.getPlayer(), e.getMessage());
             return;
         }
 

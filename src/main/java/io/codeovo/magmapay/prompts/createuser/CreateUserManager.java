@@ -1,6 +1,9 @@
 package io.codeovo.magmapay.prompts.createuser;
 
+import com.stripe.exception.*;
 import io.codeovo.magmapay.MagmaPay;
+import io.codeovo.magmapay.objects.LocalPlayer;
+import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.utils.Encryption;
 import io.codeovo.magmapay.utils.ValidationUtils;
 import org.bukkit.Bukkit;
@@ -21,7 +24,7 @@ public class CreateUserManager {
         this.createUserMap = new HashMap<>();
     }
 
-    public void handleMessage(Player p, final String message) {
+    public void handleMessage(final Player p, final String message) {
         final CreateUserProgressObject progressObject = getPlayerObject(p);
         CreateUserStep currentStep = progressObject.getUserStep();
 
@@ -44,15 +47,27 @@ public class CreateUserManager {
 
                 if (isValidPin) {
                     removePlayer(p);
+                    p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreating());
 
                     Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
                         @Override
                         public void run() {
                             progressObject.setPinHash(Encryption.securePass(message));
+
+                            try {
+                                String stripeId = StripeImplementation.createUser(progressObject.getEmail());
+
+                                magmaPay.getCacheManager().addPlayer(p, new LocalPlayer());
+                            } catch (CardException | APIException | InvalidRequestException
+                                    | AuthenticationException | APIConnectionException e) {
+                                // SEND MESSAGE
+
+
+                                // REMOVE STACK PRINT LATER
+                                e.printStackTrace();
+                            }
                         }
                     });
-
-
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
                     removePlayer(p);
