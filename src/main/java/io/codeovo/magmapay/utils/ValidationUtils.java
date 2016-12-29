@@ -16,6 +16,8 @@ public class ValidationUtils {
         try {
             if (pinStr.length() == 4) {
                 Integer.valueOf(pinStr);
+
+                return true;
             }
         } catch (Exception e) {
             return false;
