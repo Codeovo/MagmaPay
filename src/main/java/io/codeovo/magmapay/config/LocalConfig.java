@@ -35,6 +35,7 @@ public class LocalConfig {
     private String messageCreateUserZip;
     private String messageCreateUserCountry;
 
+    private String messageCreateUserName;
     private String messageCreateUserCardNumber;
     private String messageCreateUserCardMonth;
     private String messageCreateUserCardYear;
@@ -95,6 +96,8 @@ public class LocalConfig {
         messageCreateUserCountry = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.enter-country"));
 
+        messageCreateUserName = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-card-name"));
         messageCreateUserCardNumber = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.enter-card-number"));
         messageCreateUserCardMonth = GeneralUtils
@@ -148,6 +151,8 @@ public class LocalConfig {
     public String getMessageCreateUserZip() { return messageCreateUserZip; }
 
     public String getMessageCreateUserCountry() { return messageCreateUserCountry; }
+
+    public String getMessageCreateUserName() { return messageCreateUserName; }
 
     public String getMessageCreateUserCardNumber() { return messageCreateUserCardNumber; }
 

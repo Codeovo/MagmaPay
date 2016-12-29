@@ -25,6 +25,7 @@ messages:
       enter-state: "&8MagmaPay &7>> &8Enter your state or province (NA if not applicable):"
       enter-zip: "&8MagmaPay &7>> &8Enter your zip code (NA if not applicable):"
       enter-country: "&8MagmaPay &7>> &8Enter your country:"
+      enter-card-name: "&8MagmaPay &7>> &8Enter your credit card's cardholder name:"
       enter-card-number: "&8MagmaPay &7>> &8Enter your credit card number:"
       enter-card-month: "&8MagmaPay &7>> &8Enter your card's expiry month (ex: 05):"
       enter-card-year: "&8MagmaPay &7>> &8Enter your card's expiry year (ex: 20 or 2020):"

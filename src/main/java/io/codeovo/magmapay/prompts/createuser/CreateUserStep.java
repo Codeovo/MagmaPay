@@ -8,6 +8,7 @@ public enum CreateUserStep {
     STATE_PROVINCE,
     ZIP,
     COUNTRY,
+    CC_NAME,
     CC_NUMBER,
     CC_MONTH,
     CC_YEAR,
