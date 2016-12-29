@@ -26,6 +26,13 @@ public class CreateUserManager {
     }
 
     void handleMessage(final Player p, final String message) {
+        if (message.equalsIgnoreCase("cancel") || message.equalsIgnoreCase("quit")) {
+            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserQuitSucessful());
+
+            removePlayer(p);
+            return;
+        }
+
         final CreateUserProgressObject progressObject = getPlayerObject(p);
         CreateUserStep currentStep = progressObject.getUserStep();
 
@@ -131,31 +138,44 @@ public class CreateUserManager {
                 Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            String customerID = StripeImplementation.createCustomer(progressObject);
 
+                            magmaPay.getCacheManager()
+                                    .addPlayer(p, new LocalPlayer(customerID, progressObject.getPinHash()));
+
+                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreated());
+                        } catch (CardException | AuthenticationException e) {
+                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserValidationError()
+                                    .replace("<error>", e.getMessage()));
+
+                            // REMOVE LATER
+                            e.printStackTrace();
+                        } catch (APIException | InvalidRequestException | APIConnectionException e) {
+                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
+                                    .replace("<error>", e.getMessage()));
+
+                            // REMOVE LATER
+                            e.printStackTrace();
+                        }
                     }
                 });
 
         }
     }
 
-    public boolean isInMap(Player p) {
+    boolean isInMap(Player p) {
         return createUserMap.containsKey(p);
     }
 
-    public CreateUserProgressObject getPlayerObject(Player p) {
-        if (isInMap(p)) {
-            return createUserMap.get(p);
-        }
-
-        return null;
-    }
+    private CreateUserProgressObject getPlayerObject(Player p) { return createUserMap.get(p); }
 
     public void addPlayer(Player p) {
         createUserMap.put(p, new CreateUserProgressObject());
         p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserEmail());
     }
 
-    public void removePlayer(Player p) {
+    void removePlayer(Player p) {
         createUserMap.remove(p);
     }
 }

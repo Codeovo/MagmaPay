@@ -32,7 +32,9 @@ messages:
       enter-card-cvc: "&8MagmaPay &7>> &8Enter your card's CVC (3 digits on back of card):"
       creating-user: "&8MagmaPay &7>> &8Creating user, please wait..."
       user-created: "&8MagmaPay &7>> User created successfully."
+      quit-successful: "&8MagmaPay &7>> You have successfully quit the user creation process."
     errors:
+      validation-error: "&8MagmaPay &7>> &8Our payment processor could not validate your information: &7<error>"
       stripe-error: "&8MagmaPay &7>> &8An error occurred: &7<error>"
       invalid-email: "&8MagmaPay &7>> &8You entered an invalid email, creation cancelled."
       invalid-pin: "&8MagmaPay &7>> &8You entered an invalid pin, creation cancelled."

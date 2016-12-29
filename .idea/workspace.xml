@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37f5cdd7-d439-47a5-b972-29b010ba3723" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/payments/StripeImplementation.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/payments/StripeImplementation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserStep.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserStep.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config.yml" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -33,6 +29,16 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateUserProgressObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="825">
+              <caret line="65" column="4" lean-forward="false" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -93,10 +99,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/ChargeStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/executors/ExecutorServiceManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/payments/StripeImplementation.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserStep.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" />
       </list>
     </option>
@@ -1087,12 +1093,12 @@
       <workItem from="1482721432077" duration="12700000" />
       <workItem from="1482881368851" duration="46000" />
       <workItem from="1482881430551" duration="12078000" />
-      <workItem from="1483035048221" duration="11100000" />
+      <workItem from="1483035048221" duration="11910000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35924000" />
+    <option name="totallyTimeSpent" value="36734000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="6" />
@@ -1188,12 +1194,12 @@
         <state relative-caret-position="1020">
           <caret line="68" column="76" lean-forward="false" selection-start-line="68" selection-start-column="76" selection-end-line="68" selection-end-column="76" />
           <folding>
-            <element signature="e#1776#2005#0" expanded="false" />
-            <element signature="e#2004#2005#0" expanded="false" />
-            <element signature="e#5468#5469#0" expanded="false" />
-            <element signature="e#5519#5520#0" expanded="false" />
-            <element signature="e#5916#5917#0" expanded="false" />
-            <element signature="e#5955#5956#0" expanded="false" />
+            <element signature="e#2013#2242#0" expanded="false" />
+            <element signature="e#2241#2242#0" expanded="false" />
+            <element signature="e#6844#6845#0" expanded="false" />
+            <element signature="e#6895#6896#0" expanded="false" />
+            <element signature="e#7212#7213#0" expanded="false" />
+            <element signature="e#7251#7252#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1427,32 +1433,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="154" column="77" lean-forward="false" selection-start-line="154" selection-start-column="77" selection-end-line="154" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="65" column="4" lean-forward="false" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="101" column="50" lean-forward="false" selection-start-line="101" selection-start-column="50" selection-end-line="101" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserStep.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1461,11 +1441,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="825">
+          <caret line="65" column="4" lean-forward="false" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="174" column="95" lean-forward="false" selection-start-line="174" selection-start-column="95" selection-end-line="174" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="60" lean-forward="false" selection-start-line="27" selection-start-column="60" selection-end-line="27" selection-end-column="60" />
+        <state relative-caret-position="408">
+          <caret line="34" column="21" lean-forward="false" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="87" lean-forward="false" selection-start-line="29" selection-start-column="87" selection-end-line="29" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

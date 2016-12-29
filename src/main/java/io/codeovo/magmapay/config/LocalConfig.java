@@ -43,7 +43,9 @@ public class LocalConfig {
 
     private String messageCreateUserCreating;
     private String messageCreateUserCreated;
+    private String messageCreateUserQuitSucessful;
 
+    private String messageCreateUserValidationError;
     private String messageCreateUserStripeError;
     private String messageCreateUserEmailError;
     private String messageCreateUserPinError;
@@ -111,7 +113,11 @@ public class LocalConfig {
                 .colour(config.getString("messages.create-user.prompts.creating-user"));
         messageCreateUserCreated = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.user-created"));
+        messageCreateUserQuitSucessful = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.quit-successful"));
 
+        messageCreateUserValidationError = GeneralUtils
+                .colour(config.getString("messages.create-user.errors.validation-error"));
         messageCreateUserStripeError = GeneralUtils
                 .colour(config.getString("messages.create-user.errors.stripe-error"));
         messageCreateUserEmailError = GeneralUtils
@@ -165,6 +171,10 @@ public class LocalConfig {
     public String getMessageCreateUserCreating() { return messageCreateUserCreating; }
 
     public String getMessageCreateUserCreated() { return messageCreateUserCreated; }
+
+    public String getMessageCreateUserQuitSucessful() { return messageCreateUserQuitSucessful; }
+
+    public String getMessageCreateUserValidationError() { return messageCreateUserValidationError; }
 
     public String getMessageCreateUserStripeError() { return messageCreateUserStripeError; }
 
