@@ -56,9 +56,11 @@ public class CreateUserManager {
                     });
 
                     if (magmaPay.getLocalConfig().isCollectBillingAddress()) {
-
+                        progressObject.setUserStep(CreateUserStep.ADDRESS);
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserAddress());
                     } else {
-
+                        progressObject.setUserStep(CreateUserStep.CC_NAME);
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardNumber());
                     }
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
@@ -67,6 +69,72 @@ public class CreateUserManager {
 
                 break;
             case ADDRESS:
+                progressObject.setAddress(message);
+                progressObject.setUserStep(CreateUserStep.CITY);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCity());
+                break;
+            case CITY:
+                progressObject.setCity(message);
+                progressObject.setUserStep(CreateUserStep.STATE_PROVINCE);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserState());
+                break;
+            case STATE_PROVINCE:
+                progressObject.setStateOrProvince(message);
+                progressObject.setUserStep(CreateUserStep.ZIP);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserZip());
+                break;
+            case ZIP:
+                progressObject.setZip(message);
+                progressObject.setUserStep(CreateUserStep.COUNTRY);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCountry());
+                break;
+            case COUNTRY:
+                progressObject.setCountry(message);
+                progressObject.setUserStep(CreateUserStep.CC_NAME);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserName());
+                break;
+            case CC_NAME:
+                progressObject.setCardName(message);
+                progressObject.setUserStep(CreateUserStep.CC_NUMBER);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardNumber());
+                break;
+            case CC_NUMBER:
+                progressObject.setCardNumber(message);
+                progressObject.setUserStep(CreateUserStep.CC_MONTH);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardMonth());
+                break;
+            case CC_MONTH:
+                progressObject.setCardMonth(message);
+                progressObject.setUserStep(CreateUserStep.CC_YEAR);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardYear());
+                break;
+            case CC_YEAR:
+                progressObject.setCardYear(message);
+                progressObject.setUserStep(CreateUserStep.CC_CVC);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardCVC());
+                break;
+            case CC_CVC:
+                progressObject.setCardCVC(message);
+
+                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreating());
+                removePlayer(p);
+
+                Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+
         }
     }
 

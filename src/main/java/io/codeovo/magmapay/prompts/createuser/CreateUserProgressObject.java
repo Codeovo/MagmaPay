@@ -1,6 +1,6 @@
 package io.codeovo.magmapay.prompts.createuser;
 
-class CreateUserProgressObject {
+public class CreateUserProgressObject {
     private CreateUserStep userStep;
     private String email;
     private String pinHash;
@@ -11,6 +11,7 @@ class CreateUserProgressObject {
     private String zip;
     private String country;
 
+    private String cardName;
     private String cardNumber;
     private String cardMonth;
     private String cardYear;
@@ -26,7 +27,7 @@ class CreateUserProgressObject {
         this.userStep = userStep;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -34,45 +35,49 @@ class CreateUserProgressObject {
         this.email = email;
     }
 
-    String getPinHash() {
+    public String getPinHash() {
         return pinHash;
     }
 
     void setPinHash(String pinHash) { this.pinHash = pinHash; }
 
-    String getAddress() { return address; }
+    public String getAddress() { return address; }
 
     void setAddress(String address) { this.address = address; }
 
-    String getCity() { return city; }
+    public String getCity() { return city; }
 
     void setCity(String city) { this.city = city; }
 
-    String getStateOrProvince() { return stateOrProvince; }
+    public String getStateOrProvince() { return stateOrProvince; }
 
     void setStateOrProvince(String stateOrProvince) { this.stateOrProvince = stateOrProvince; }
 
-    String getZip() { return zip; }
+    public String getZip() { return zip; }
 
     void setZip(String zip) { this.zip = zip; }
 
-    String getCountry() { return country; }
+    public String getCountry() { return country; }
 
     void setCountry(String country) { this.country = country; }
 
-    String getCardNumber() { return cardNumber; }
+    public String getCardName() { return cardName; }
+
+    void setCardName(String cardName) { this.cardName = cardName; }
+
+    public String getCardNumber() { return cardNumber; }
 
     void setCardNumber(String cardNumber) { this.cardNumber = cardNumber; }
 
-    String getCardMonth() { return cardMonth; }
+    public String getCardMonth() { return cardMonth; }
 
     void setCardMonth(String cardMonth) { this.cardMonth = cardMonth; }
 
-    String getCardYear() { return cardYear; }
+    public String getCardYear() { return cardYear; }
 
     void setCardYear(String cardYear) { this.cardYear = cardYear; }
 
-    String getCardCVC() { return cardCVC; }
+    public String getCardCVC() { return cardCVC; }
 
     void setCardCVC(String cardCVC) { this.cardCVC = cardCVC; }
 }

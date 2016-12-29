@@ -5,6 +5,7 @@ import com.stripe.exception.*;
 import com.stripe.model.Customer;
 
 import io.codeovo.magmapay.MagmaPay;
+import io.codeovo.magmapay.prompts.createuser.CreateUserProgressObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,11 +19,12 @@ public class StripeImplementation {
         Stripe.apiKey = magmaPay.getLocalConfig().getStripeApiKey();
     }
 
-    public static String createUser(String email) throws CardException, APIException, AuthenticationException,
+    public static String createCustomer(CreateUserProgressObject createUserProgressObject)
+            throws CardException, APIException, AuthenticationException,
             InvalidRequestException, APIConnectionException {
         Map<String, Object> customerParams = new HashMap<>();
-        customerParams.put("description", "Customer for " + email);
-        customerParams.put("email", email);
+        customerParams.put("description", "Customer for " + createUserProgressObject.getEmail());
+        customerParams.put("email", createUserProgressObject.getEmail());
 
         Customer c = Customer.create(customerParams);
 
