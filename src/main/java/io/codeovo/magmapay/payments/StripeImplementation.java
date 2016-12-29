@@ -1,9 +1,9 @@
 package io.codeovo.magmapay.payments;
 
 import com.stripe.Stripe;
-
 import com.stripe.exception.*;
 import com.stripe.model.Customer;
+
 import io.codeovo.magmapay.MagmaPay;
 
 import java.util.HashMap;
