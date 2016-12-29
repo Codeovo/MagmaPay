@@ -1,0 +1,4 @@
+name: MagmaPay
+author: Codeovo
+version: 1.0.0
+main: io.codeovo.magmapay.MagmaPay
