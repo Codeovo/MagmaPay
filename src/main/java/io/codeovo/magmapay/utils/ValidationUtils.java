@@ -15,7 +15,7 @@ public class ValidationUtils {
     public static boolean validatePin(String pinStr) {
         try {
             if (pinStr.length() == 4) {
-                int intPin = Integer.valueOf(pinStr);
+                Integer.valueOf(pinStr);
             }
         } catch (Exception e) {
             return false;
