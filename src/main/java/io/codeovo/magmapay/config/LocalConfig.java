@@ -12,6 +12,8 @@ public class LocalConfig {
 
     private int configVersion;
 
+    private boolean collectBillingAddress;
+
     private StorageType storageType;
 
     private String mysqlIP;
@@ -26,6 +28,18 @@ public class LocalConfig {
 
     private String messageCreateUserEmail;
     private String messageCreateUserPin;
+
+    private String messageCreateUserAddress;
+    private String messageCreateUserCity;
+    private String messageCreateUserState;
+    private String messageCreateUserZip;
+    private String messageCreateUserCountry;
+
+    private String messageCreateUserCardNumber;
+    private String messageCreateUserCardMonth;
+    private String messageCreateUserCardYear;
+    private String messageCreateUserCardCVC;
+
     private String messageCreateUserCreating;
     private String messageCreateUserCreated;
 
@@ -44,6 +58,8 @@ public class LocalConfig {
 
     private void loadConfig() {
         configVersion = config.getInt("config-version");
+
+        collectBillingAddress = config.getBoolean("general.collect-billing-address");
 
         if (config.getBoolean("storage.mysql.use")) {
             storageType = StorageType.MYSQL;
@@ -67,6 +83,27 @@ public class LocalConfig {
                 .colour(config.getString("messages.create-user.prompts.enter-email"));
         messageCreateUserPin = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.enter-pin"));
+
+        messageCreateUserAddress = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-address"));
+        messageCreateUserCity = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-city"));
+        messageCreateUserState = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-state"));
+        messageCreateUserZip = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-zip"));
+        messageCreateUserCountry = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-country"));
+
+        messageCreateUserCardNumber = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-card-number"));
+        messageCreateUserCardMonth = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-card-month"));
+        messageCreateUserCardYear = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-card-year"));
+        messageCreateUserCardCVC = GeneralUtils
+                .colour(config.getString("messages.create-user.prompts.enter-card-cvc"));
+
         messageCreateUserCreating = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.creating-user"));
         messageCreateUserCreated = GeneralUtils
@@ -79,6 +116,8 @@ public class LocalConfig {
         messageCreateUserPinError = GeneralUtils
                 .colour(config.getString("messages.create-user.errors.invalid-pin"));
     }
+
+    public boolean isCollectBillingAddress() { return collectBillingAddress; }
 
     public StorageType getStorageType() { return storageType; }
 
@@ -99,6 +138,24 @@ public class LocalConfig {
     public String getMessageCreateUserEmail() { return messageCreateUserEmail; }
 
     public String getMessageCreateUserPin() { return messageCreateUserPin; }
+
+    public String getMessageCreateUserAddress() { return messageCreateUserAddress; }
+
+    public String getMessageCreateUserCity() { return messageCreateUserCity; }
+
+    public String getMessageCreateUserState() { return messageCreateUserState; }
+
+    public String getMessageCreateUserZip() { return messageCreateUserZip; }
+
+    public String getMessageCreateUserCountry() { return messageCreateUserCountry; }
+
+    public String getMessageCreateUserCardNumber() { return messageCreateUserCardNumber; }
+
+    public String getMessageCreateUserCardMonth() { return messageCreateUserCardMonth; }
+
+    public String getMessageCreateUserCardYear() { return messageCreateUserCardYear; }
+
+    public String getMessageCreateUserCardCVC() { return messageCreateUserCardCVC; }
 
     public String getMessageCreateUserCreating() { return messageCreateUserCreating; }
 

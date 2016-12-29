@@ -48,31 +48,25 @@ public class CreateUserManager {
                 boolean isValidPin = ValidationUtils.validatePin(message);
 
                 if (isValidPin) {
-                    removePlayer(p);
-                    p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreating());
-
                     Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
                         @Override
                         public void run() {
                             progressObject.setPinHash(Encryption.securePass(message));
-
-                            try {
-                                String stripeId = StripeImplementation.createUser(progressObject.getEmail());
-
-                                magmaPay.getCacheManager()
-                                        .addPlayer(p, new LocalPlayer(stripeId, progressObject.getPinHash()));
-                                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreated());
-                            } catch (CardException | APIException | InvalidRequestException
-                                    | AuthenticationException | APIConnectionException e) {
-                                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
-                                        .replace("<error>", e.getMessage()));
-                            }
                         }
                     });
+
+                    if (magmaPay.getLocalConfig().isCollectBillingAddress()) {
+
+                    } else {
+
+                    }
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
                     removePlayer(p);
                 }
+
+                break;
+            case ADDRESS:
         }
     }
 

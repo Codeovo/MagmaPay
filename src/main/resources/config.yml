@@ -1,4 +1,6 @@
 config-version: 1
+general:
+  collect-billing-address: true
 storage:
   mysql:
     use: false
@@ -18,6 +20,15 @@ messages:
     prompts:
       enter-email: "&8MagmaPay &7>> &8Enter your e-mail address:"
       enter-pin: "&8MagmaPay &7>> &8Enter a 4-digit pin:"
+      enter-address: "&8MagmaPay &7>> &8Enter your street address:"
+      enter-city: "&8MagmaPay &7>> &8Enter your city:"
+      enter-state: "&8MagmaPay &7>> &8Enter your state or province (NA if not applicable):"
+      enter-zip: "&8MagmaPay &7>> &8Enter your zip code (NA if not applicable):"
+      enter-country: "&8MagmaPay &7>> &8Enter your country:"
+      enter-card-number: "&8MagmaPay &7>> &8Enter your credit card number:"
+      enter-card-month: "&8MagmaPay &7>> &8Enter your card's expiry month (ex: 05):"
+      enter-card-year: "&8MagmaPay &7>> &8Enter your card's expiry year (ex: 20 or 2020):"
+      enter-card-cvc: "&8MagmaPay &7>> &8Enter your card's CVC (3 digits on back of card):"
       creating-user: "&8MagmaPay &7>> &8Creating user, please wait..."
       user-created: "&8MagmaPay &7>> User created successfully."
     errors:
