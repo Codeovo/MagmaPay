@@ -29,6 +29,7 @@ public class LocalConfig {
     private String messageCreateUserCreating;
     private String messageCreateUserCreated;
 
+    private String messageCreateUserStripeError;
     private String messageCreateUserEmailError;
     private String messageCreateUserPinError;
 
@@ -71,7 +72,8 @@ public class LocalConfig {
         messageCreateUserCreated = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.user-created"));
 
-
+        messageCreateUserStripeError = GeneralUtils
+                .colour(config.getString("messages.create-user.errors.stripe-error"));
         messageCreateUserEmailError = GeneralUtils
                 .colour(config.getString("messages.create-user.errors.invalid-email"));
         messageCreateUserPinError = GeneralUtils
@@ -101,6 +103,8 @@ public class LocalConfig {
     public String getMessageCreateUserCreating() { return messageCreateUserCreating; }
 
     public String getMessageCreateUserCreated() { return messageCreateUserCreated; }
+
+    public String getMessageCreateUserStripeError() { return messageCreateUserStripeError; }
 
     public String getMessageCreateUserEmailError() { return messageCreateUserEmailError; }
 

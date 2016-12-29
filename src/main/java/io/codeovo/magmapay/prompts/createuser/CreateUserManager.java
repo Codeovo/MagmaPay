@@ -1,11 +1,13 @@
 package io.codeovo.magmapay.prompts.createuser;
 
 import com.stripe.exception.*;
+
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.LocalPlayer;
 import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.utils.Encryption;
 import io.codeovo.magmapay.utils.ValidationUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -24,7 +26,7 @@ public class CreateUserManager {
         this.createUserMap = new HashMap<>();
     }
 
-    public void handleMessage(final Player p, final String message) {
+    void handleMessage(final Player p, final String message) {
         final CreateUserProgressObject progressObject = getPlayerObject(p);
         CreateUserStep currentStep = progressObject.getUserStep();
 
@@ -34,6 +36,7 @@ public class CreateUserManager {
 
                 if (isValidEmail) {
                     progressObject.setEmail(message);
+                    progressObject.setUserStep(CreateUserStep.PIN);
 
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPin());
                 } else {
@@ -57,11 +60,13 @@ public class CreateUserManager {
                             try {
                                 String stripeId = StripeImplementation.createUser(progressObject.getEmail());
 
-                                magmaPay.getCacheManager().addPlayer(p, new LocalPlayer());
+                                magmaPay.getCacheManager()
+                                        .addPlayer(p, new LocalPlayer(stripeId, progressObject.getPinHash()));
+                                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreated());
                             } catch (CardException | APIException | InvalidRequestException
                                     | AuthenticationException | APIConnectionException e) {
-                                // SEND MESSAGE
-
+                                p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
+                                        .replace("<error>", e.getMessage()));
 
                                 // REMOVE STACK PRINT LATER
                                 e.printStackTrace();

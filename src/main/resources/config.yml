@@ -21,5 +21,6 @@ messages:
       creating-user: "&8MagmaPay &7>> &8Creating user, please wait..."
       user-created: "&8MagmaPay &7>> User created successfully."
     errors:
+      stripe-error: "&8MagmaPay &7>> &8An error occurred: &7<error>"
       invalid-email: "&8MagmaPay &7>> &8You entered an invalid email, creation cancelled."
       invalid-pin: "&8MagmaPay &7>> &8You entered an invalid pin, creation cancelled."
