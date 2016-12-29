@@ -6,6 +6,7 @@ import io.codeovo.magmapay.listeners.PlayerListener;
 import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.prompts.PromptManager;
 import io.codeovo.magmapay.storage.Storage;
+import io.codeovo.magmapay.test.TestCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MagmaPay extends JavaPlugin {
@@ -33,6 +34,9 @@ public class MagmaPay extends JavaPlugin {
         promptManager = new PromptManager(this);
 
         stripeImplementation = new StripeImplementation(this);
+
+        // TEST IMPLEMENTATION
+        getCommand("test").setExecutor(new TestCommand(this));
 
         getLogger().info("MagmaPay - Enabled.");
     }
