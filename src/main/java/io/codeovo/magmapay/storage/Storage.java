@@ -95,7 +95,7 @@ public class Storage {
         try {
             connection = pool.getConnection();
 
-            preparedStatement = connection.prepareStatement("REPLACE INTO mp_players (player_uuid, stripe_token, pin_token) VALUES (?, ?, ?)");
+            preparedStatement = connection.prepareStatement("REPLACE INTO mp_players (player_uuid, stripe_token, pin_hash) VALUES (?, ?, ?)");
             preparedStatement.setString(1, playerUUID.toString());
             preparedStatement.setString(2, stripeToken);
             preparedStatement.setString(3, pinToken);
@@ -127,7 +127,7 @@ public class Storage {
         try {
             connection = pool.getConnection();
 
-            preparedStatement = connection.prepareStatement("SELECT stripe_token, pin_token FROM mp_players WHERE player_uuid = ?");
+            preparedStatement = connection.prepareStatement("SELECT stripe_token, pin_hash FROM mp_players WHERE player_uuid = ?");
             preparedStatement.setString(1, p.getUniqueId().toString());
             resultSet = preparedStatement.executeQuery();
 
