@@ -6,7 +6,7 @@ public class ChargeRequest {
     private Player player;
     private int amountToCharge;
     private String isoCurrency;
-    private boolean chargeImediately;
+    private boolean chargeImmediately;
     private String chargeDescription;
     private String statementDescriptor;
 
@@ -16,56 +16,46 @@ public class ChargeRequest {
     private int applicationFee;
     private String destinationAccount;
 
-    public ChargeRequest(Player player, int amountToCharge, String isoCurrency) {
+    public ChargeRequest(Player player, int amountToCharge, String isoCurrency, boolean chargeImmediately,
+                         String chargeDescription, String statementDescriptor) {
         this.player = player;
         this.amountToCharge = amountToCharge;
         this.isoCurrency = isoCurrency;
 
+        this.chargeDescription = chargeDescription;
+        this.statementDescriptor = statementDescriptor;
+
         this.pinProvided = false;
-        this.chargeImediately = true;
+        this.chargeImmediately = chargeImmediately;
     }
 
     public Player getPlayer() { return player; }
 
-    public void setPlayer(Player player) { this.player = player; }
-
     public int getAmountToCharge() { return amountToCharge; }
-
-    public void setAmountToCharge(int amountToCharge) {
-        this.amountToCharge = amountToCharge;
-    }
 
     public String getIsoCurrency() {
         return isoCurrency;
     }
 
-    public void setIsoCurrency(String isoCurrency) {
-        this.isoCurrency = isoCurrency;
-    }
-
-    public boolean isChargeImediately() {
-        return chargeImediately;
-    }
-
-    public void setChargeImediately(boolean chargeImediately) {
-        this.chargeImediately = chargeImediately;
+    public boolean isChargeImmediately() {
+        return chargeImmediately;
     }
 
     public String getChargeDescription() {
         return chargeDescription;
     }
 
-    public void setChargeDescription(String chargeDescription) {
-        this.chargeDescription = chargeDescription;
-    }
-
     public String getStatementDescriptor() {
         return statementDescriptor;
     }
 
-    public void setStatementDescriptor(String statementDescriptor) {
-        this.statementDescriptor = statementDescriptor;
-    }
+    public boolean isPinProvided() { return pinProvided; }
+
+    public void setPinProvided(boolean pinProvided) { this.pinProvided = pinProvided; }
+
+    public String getProvidedPin() { return providedPin; }
+
+    public void setProvidedPin(String providedPin) { this.providedPin = providedPin; }
 
     public int getApplicationFee() {
         return applicationFee;

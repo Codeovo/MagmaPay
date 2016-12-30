@@ -1,5 +1,6 @@
 package io.codeovo.magmapay;
 
+import io.codeovo.magmapay.api.MagmaPayAPI;
 import io.codeovo.magmapay.cache.CacheManager;
 import io.codeovo.magmapay.config.LocalConfig;
 import io.codeovo.magmapay.executors.ExecutorServiceManager;
@@ -12,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MagmaPay extends JavaPlugin {
     private static MagmaPay magmaPay;
+
+    private static MagmaPayAPI magmaPayAPI;
 
     private CacheManager cacheManager;
     private LocalConfig localConfig;
@@ -37,6 +40,7 @@ public class MagmaPay extends JavaPlugin {
         promptManager = new PromptManager(this);
 
         stripeImplementation = new StripeImplementation(this);
+        magmaPayAPI = new MagmaPayAPI(this);
 
         // TEST IMPLEMENTATION
         getCommand("test").setExecutor(new TestCommand(this));
@@ -55,6 +59,8 @@ public class MagmaPay extends JavaPlugin {
     }
 
     public static MagmaPay getInstance() { return magmaPay; }
+
+    public static MagmaPayAPI getMagmaPayAPI() { return magmaPayAPI; }
 
     public CacheManager getCacheManager() { return cacheManager; }
 

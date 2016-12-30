@@ -21,6 +21,8 @@ public class PinRetrievalManager {
                 .registerEvents(new PinRetrievalListener(this), magmaPay);
     }
 
+
+
     boolean isInList(Player p) { return pinRetrievalList.contains(p); }
 
     void removePlayer(Player p) { pinRetrievalList.remove(p); }

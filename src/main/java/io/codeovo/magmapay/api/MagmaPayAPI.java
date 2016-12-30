@@ -1,13 +1,15 @@
 package io.codeovo.magmapay.api;
 
+import com.stripe.model.Charge;
+
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
+import io.codeovo.magmapay.utils.Encryption;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.*;
 
 public class MagmaPayAPI {
     private MagmaPay magmaPay;
@@ -18,16 +20,60 @@ public class MagmaPayAPI {
         this.executorService = Executors.newCachedThreadPool();
     }
 
-    public ChargeResponse chargePlayer(ChargeRequest chargeRequest) {
+    public ChargeResponse chargePlayer(final ChargeRequest chargeRequest) {
+        String stripeTokenId = "";
 
+        if (!magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
+
+        } else {
+            stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
+        }
+
+        String pinHash = "";
+
+        if (chargeRequest.isPinProvided()) {
+            pinHash = magmaPay.getExecutorServiceManager().getHashedPin(chargeRequest.getProvidedPin());
+        } else {
+
+        }
+
+        if (!Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(),
+                pinHash)) {
+            return null;
+        }
+
+        final String finalStripeTokenId = stripeTokenId;
 
         Future<ChargeResponse> future = executorService.submit(new Callable<ChargeResponse>() {
             @Override
             public ChargeResponse call() throws Exception {
+                Map<String, Object> chargeParams = new HashMap<>();
+                chargeParams.put("source", finalStripeTokenId);
 
+                chargeParams.put("amount", chargeRequest.getAmountToCharge());
+                chargeParams.put("currency", chargeRequest.getIsoCurrency());
+
+                if (!chargeRequest.isChargeImmediately()) {
+                    chargeParams.put("capture", false);
+                }
+
+                chargeParams.put("description", chargeRequest.getChargeDescription());
+                chargeParams.put("statement_descriptor", chargeRequest.getStatementDescriptor());
+
+                Charge c = Charge.create(chargeParams);
+
+                return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
+                        c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
+                        c.getFraudDetails().getUserReport());
             }
         });
 
+        try {
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
+        return null;
     }
 }

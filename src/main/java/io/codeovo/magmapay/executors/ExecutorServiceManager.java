@@ -2,7 +2,9 @@ package io.codeovo.magmapay.executors;
 
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.utils.Encryption;
+import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.concurrent.*;
 
 public class ExecutorServiceManager {
