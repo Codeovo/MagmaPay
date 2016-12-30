@@ -74,6 +74,7 @@ public class MagmaPayAPI {
             pin = chargeRequest.getProvidedPin();
         } else {
             pinRetrievalHashMap.put(chargeRequest.getPlayer(), new CountDownLatch(  1));
+
             try {
                 magmaPay.getPromptManager().getPinRetrievalManager().addPlayer(chargeRequest.getPlayer());
                 pinRetrievalHashMap.get(chargeRequest.getPlayer()).await();
