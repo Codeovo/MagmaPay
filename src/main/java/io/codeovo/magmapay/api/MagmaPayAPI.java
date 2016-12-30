@@ -67,7 +67,7 @@ public class MagmaPayAPI {
         }
 
         if (!(Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(), pin))) {
-            return null;
+            return new ChargeResponse(EarlyFailStatus.INCORRECT_PIN);
         }
 
         final String finalStripeTokenId = stripeTokenId;
