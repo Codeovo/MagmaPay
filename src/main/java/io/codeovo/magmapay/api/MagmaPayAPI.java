@@ -6,7 +6,6 @@ import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.utils.Encryption;
-import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,28 +23,25 @@ public class MagmaPayAPI {
     public ChargeResponse chargePlayer(final ChargeRequest chargeRequest) {
         String stripeTokenId = "";
 
+        if (!chargeRequest.getPlayer().isOnline()) {
+            return null;
+        }
+
         if (!magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
 
         } else {
             stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
         }
 
-        String pinHash = "";
+        String pin = "";
 
         if (chargeRequest.getProvidedPin() != null) {
-            pinHash = magmaPay.getExecutorServiceManager().getHashedPin(chargeRequest.getProvidedPin());
+            pin = chargeRequest.getProvidedPin();
         } else {
 
         }
 
-        if (!Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(),
-                pinHash)) {
-
-
-            // DEBUG
-            Bukkit.getLogger().info("HIT");
-
-
+        if (!(Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(), pin))) {
             return null;
         }
 
@@ -67,7 +63,7 @@ public class MagmaPayAPI {
                 chargeParams.put("description", chargeRequest.getChargeDescription());
                 chargeParams.put("statement_descriptor", chargeRequest.getStatementDescriptor());
 
-                Charge c = Charge.create(chargeParams);
+                Charge c =  Charge.create(chargeParams);
 
                 return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
                         c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),

@@ -1,6 +1,7 @@
 package io.codeovo.magmapay.test;
 
 import io.codeovo.magmapay.MagmaPay;
+import io.codeovo.magmapay.objects.LocalPlayer;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.utils.Encryption;
@@ -16,18 +17,7 @@ public class TestCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        ChargeResponse chargeResponse = MagmaPay.getMagmaPayAPI().chargePlayer(new ChargeRequest((Player) commandSender,
-                5000, "CAD", true, "Test Charge",
-                "Test Charge", "3128"));
-
-        commandSender.sendMessage(chargeResponse.getChargeId());
-        commandSender.sendMessage(chargeResponse.getFailureCode());
-        commandSender.sendMessage(chargeResponse.getFailureMessage());
-        commandSender.sendMessage(chargeResponse.getStatus());
-        commandSender.sendMessage(chargeResponse.getStripeFraudReport());
-        commandSender.sendMessage(chargeResponse.getStripeUserReport());
-        commandSender.sendMessage(String.valueOf(chargeResponse.getCreatedStamp()));
-        commandSender.sendMessage(String.valueOf(chargeResponse.isCaptured()));
+        Player p = (Player) commandSender;
 
         return false;
     }
