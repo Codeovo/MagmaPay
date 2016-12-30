@@ -5,7 +5,9 @@ import com.stripe.model.Charge;
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
+import io.codeovo.magmapay.objects.charges.EarlyFailStatus;
 import io.codeovo.magmapay.utils.Encryption;
+
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -29,7 +31,11 @@ public class MagmaPayAPI {
         String stripeTokenId;
 
         if (!chargeRequest.getPlayer().isOnline()) {
-            return null;
+            return new ChargeResponse(EarlyFailStatus.PLAYER_OFFLINE);
+        }
+
+        if (customerRetrievalHashMap.containsKey(chargeRequest.getPlayer())) {
+            return new ChargeResponse(EarlyFailStatus.COLLECTING_DATA_FROM_PREVIOUS_CHARGE);
         }
 
         if (!magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
@@ -38,7 +44,7 @@ public class MagmaPayAPI {
                 magmaPay.getPromptManager().getCreateUserManager().addPlayer(chargeRequest.getPlayer());
                 customerRetrievalHashMap.get(chargeRequest.getPlayer()).await();
             } catch (InterruptedException e) {
-                return null;
+                return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
             }
 
             customerRetrievalHashMap.remove(chargeRequest.getPlayer());
@@ -46,7 +52,7 @@ public class MagmaPayAPI {
             if (magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
                 stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
             } else {
-                return null;
+                return new ChargeResponse(EarlyFailStatus.FAIL_DURING_DATA_RETRIEVAL);
             }
         } else {
             stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37f5cdd7-d439-47a5-b972-29b010ba3723" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/api/MagmaPayAPI.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/api/MagmaPayAPI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/ChargeResponse.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/ChargeResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserListener.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" afterPath="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,20 +20,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MagmaPayAPI.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/api/MagmaPayAPI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="23" column="37" lean-forward="false" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -81,7 +66,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/config/LocalConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/payments/StripeImplementation.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserProgressObject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/MagmaPay.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/excpetions/MagmaException.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/pinretrieval/PinRetrievalManager.java" />
@@ -94,9 +78,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/utils/Encryption.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/test/TestCommand.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/ChargeResponse.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/api/MagmaPayAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java" />
       </list>
     </option>
   </component>
@@ -999,16 +984,16 @@
       <workItem from="1482881430551" duration="12078000" />
       <workItem from="1483035048221" duration="15990000" />
       <workItem from="1483068740189" duration="6068000" />
-      <workItem from="1483123163355" duration="2652000" />
+      <workItem from="1483123163355" duration="3073000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49534000" />
+    <option name="totallyTimeSpent" value="49955000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1676" height="1027" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1024,7 +1009,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.315508" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21848226" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21848226" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1083,9 +1068,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1135,9 +1118,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1277,16 +1258,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="104" column="42" lean-forward="false" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/pinretrieval/PinRetrievalManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -1323,6 +1294,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1418,14 +1390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/ChargeResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="543">
@@ -1434,14 +1398,6 @@
             <element signature="e#443#444#0" expanded="true" />
             <element signature="e#497#498#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="41" column="12" lean-forward="false" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1461,13 +1417,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/api/MagmaPayAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="23" column="37" lean-forward="false" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/objects/charges/EarlyFailStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/codeovo/magmapay/prompts/createuser/CreateUserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="166" column="99" lean-forward="false" selection-start-line="166" selection-start-column="99" selection-end-line="166" selection-end-column="99" />
+          <folding />
         </state>
       </provider>
     </entry>

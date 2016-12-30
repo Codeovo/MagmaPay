@@ -30,6 +30,7 @@ public class CreateUserManager {
             p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserQuitSucessful());
 
             removePlayer(p);
+            MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
             return;
         }
 
@@ -158,16 +159,12 @@ public class CreateUserManager {
                         } catch (CardException | AuthenticationException e) {
                             p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserValidationError()
                                     .replace("<error>", e.getMessage()));
-
-                            // REMOVE LATER
-                            e.printStackTrace();
                         } catch (APIException | InvalidRequestException | APIConnectionException e) {
                             p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
                                     .replace("<error>", e.getMessage()));
-
-                            // REMOVE LATER
-                            e.printStackTrace();
                         }
+
+                        MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
                     }
                 });
 
