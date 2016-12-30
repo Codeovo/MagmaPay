@@ -1,5 +1,7 @@
 package io.codeovo.magmapay.prompts.pinretrieval;
 
+import io.codeovo.magmapay.MagmaPay;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,7 +23,7 @@ public class PinRetrievalListener implements Listener {
         if(pinRetrievalManager.isInList(e.getPlayer())) {
             e.setCancelled(true);
 
-            //pinRetrievalManager.handleMessage(e.getPlayer(), e.getMessage());
+            pinRetrievalManager.handleMessage(e.getPlayer(), e.getMessage());
             return;
         }
 
@@ -38,6 +40,8 @@ public class PinRetrievalListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         if(pinRetrievalManager.isInList(e.getPlayer())) {
             pinRetrievalManager.removePlayer(e.getPlayer());
+
+            MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(e.getPlayer()).countDown();
         }
     }
 }
