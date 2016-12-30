@@ -1,5 +1,6 @@
 package io.codeovo.magmapay.prompts.createuser;
 
+import io.codeovo.magmapay.MagmaPay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,6 +39,8 @@ public class CreateUserListener implements Listener {
     public void onQuit(PlayerQuitEvent e) {
         if(createUserManager.isInMap(e.getPlayer())) {
             createUserManager.removePlayer(e.getPlayer());
+
+            MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(e.getPlayer()).countDown();
         }
     }
 }

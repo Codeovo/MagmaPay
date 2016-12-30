@@ -6,6 +6,7 @@ import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.utils.Encryption;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,22 +14,40 @@ import java.util.concurrent.*;
 
 public class MagmaPayAPI {
     private MagmaPay magmaPay;
+
+    private HashMap<Player, CountDownLatch> customerRetrievalHashMap;
     private ExecutorService executorService;
 
     public MagmaPayAPI(MagmaPay magmaPay) {
         this.magmaPay = magmaPay;
+
+        this.customerRetrievalHashMap = new HashMap<>();
         this.executorService = Executors.newCachedThreadPool();
     }
 
     public ChargeResponse chargePlayer(final ChargeRequest chargeRequest) {
-        String stripeTokenId = "";
+        String stripeTokenId;
 
         if (!chargeRequest.getPlayer().isOnline()) {
             return null;
         }
 
         if (!magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
+            customerRetrievalHashMap.put(chargeRequest.getPlayer(), new CountDownLatch(1));
+            try {
+                magmaPay.getPromptManager().getCreateUserManager().addPlayer(chargeRequest.getPlayer());
+                customerRetrievalHashMap.get(chargeRequest.getPlayer()).await();
+            } catch (InterruptedException e) {
+                return null;
+            }
 
+            customerRetrievalHashMap.remove(chargeRequest.getPlayer());
+
+            if (magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
+                stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
+            } else {
+                return null;
+            }
         } else {
             stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
         }
@@ -78,5 +97,9 @@ public class MagmaPayAPI {
         }
 
         return null;
+    }
+
+    public HashMap<Player, CountDownLatch> getCustomerRetrievalHashMap() {
+        return customerRetrievalHashMap;
     }
 }
