@@ -88,13 +88,23 @@ public class CreateUserManager {
                 p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserState());
                 break;
             case STATE_PROVINCE:
-                progressObject.setStateOrProvince(message);
+                if (message.equalsIgnoreCase("NA")) {
+                    progressObject.setStateOrProvince("");
+                } else {
+                    progressObject.setStateOrProvince(message);
+                }
+
                 progressObject.setUserStep(CreateUserStep.ZIP);
 
                 p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserZip());
                 break;
             case ZIP:
-                progressObject.setZip(message);
+                if (message.equalsIgnoreCase("NA")) {
+                    progressObject.setZip("");
+                } else {
+                    progressObject.setZip(message);
+                }
+
                 progressObject.setUserStep(CreateUserStep.COUNTRY);
 
                 p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCountry());
