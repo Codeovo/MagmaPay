@@ -11,7 +11,7 @@ import java.util.List;
 public class PinRetrievalManager {
     private MagmaPay magmaPay;
 
-    public List<Player> pinRetrievalList;
+    private List<Player> pinRetrievalList;
 
     public PinRetrievalManager(MagmaPay magmaPay) {
         this.magmaPay = magmaPay;
@@ -21,7 +21,15 @@ public class PinRetrievalManager {
                 .registerEvents(new PinRetrievalListener(this), magmaPay);
     }
 
+    void handleMessage(Player p, String message) {
+        MagmaPay.getMagmaPayAPI().getRetrievedPin().put(p, message);
+        MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
+    }
 
+    public void addPlayer(Player p) {
+        pinRetrievalList.add(p);
+        p.sendMessage(magmaPay.getLocalConfig().getMessagePinRetrieveEnterPin());
+    }
 
     boolean isInList(Player p) { return pinRetrievalList.contains(p); }
 

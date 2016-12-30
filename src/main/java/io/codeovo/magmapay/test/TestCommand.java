@@ -5,6 +5,7 @@ import io.codeovo.magmapay.objects.LocalPlayer;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.utils.Encryption;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,10 +18,15 @@ public class TestCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        Player p = (Player) commandSender;
+        final Player p = (Player) commandSender;
 
-        MagmaPay.getMagmaPayAPI().chargePlayer(new ChargeRequest(p, 2000, "CAD", true,
-                "test", "test", "3128"));
+        Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
+            @Override
+            public void run() {
+                MagmaPay.getMagmaPayAPI().chargePlayer(new ChargeRequest(p, 2000, "CAD", true,
+                        "test", "test", "3128"));
+            }
+        });
 
         return false;
     }

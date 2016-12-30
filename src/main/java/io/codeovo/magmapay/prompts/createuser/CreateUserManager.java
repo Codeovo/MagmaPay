@@ -49,6 +49,7 @@ public class CreateUserManager {
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserEmailError());
                     removePlayer(p);
+                    MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
                 }
 
                 break;
@@ -73,6 +74,7 @@ public class CreateUserManager {
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
                     removePlayer(p);
+                    MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
                 }
 
                 break;

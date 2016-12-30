@@ -18,12 +18,20 @@ public class MagmaPayAPI {
     private MagmaPay magmaPay;
 
     private HashMap<Player, CountDownLatch> customerRetrievalHashMap;
+
+    private HashMap<Player, CountDownLatch> pinRetrievalHashMap;
+    private HashMap<Player, String> retrievedPin;
+
     private ExecutorService executorService;
 
     public MagmaPayAPI(MagmaPay magmaPay) {
         this.magmaPay = magmaPay;
 
         this.customerRetrievalHashMap = new HashMap<>();
+
+        this.pinRetrievalHashMap = new HashMap<>();
+        this.retrievedPin = new HashMap<>();
+
         this.executorService = Executors.newCachedThreadPool();
     }
 
@@ -44,6 +52,7 @@ public class MagmaPayAPI {
                 magmaPay.getPromptManager().getCreateUserManager().addPlayer(chargeRequest.getPlayer());
                 customerRetrievalHashMap.get(chargeRequest.getPlayer()).await();
             } catch (InterruptedException e) {
+                customerRetrievalHashMap.remove(chargeRequest.getPlayer());
                 return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
             }
 
@@ -58,12 +67,27 @@ public class MagmaPayAPI {
             stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
         }
 
-        String pin = "";
+        String pin;
 
         if (chargeRequest.getProvidedPin() != null) {
             pin = chargeRequest.getProvidedPin();
         } else {
+            pinRetrievalHashMap.put(chargeRequest.getPlayer(), new CountDownLatch(  1));
+            try {
+                magmaPay.getPromptManager().getPinRetrievalManager().addPlayer(chargeRequest.getPlayer());
+                pinRetrievalHashMap.get(chargeRequest.getPlayer()).await();
+            } catch (InterruptedException e) {
+                pinRetrievalHashMap.remove(chargeRequest.getPlayer());
+                return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
+            }
 
+            pinRetrievalHashMap.remove(chargeRequest.getPlayer());
+
+            if (retrievedPin.containsKey(chargeRequest.getPlayer())) {
+                pin = retrievedPin.get(chargeRequest.getPlayer());
+            } else {
+                return new ChargeResponse(EarlyFailStatus.FAIL_DURING_DATA_RETRIEVAL);
+            }
         }
 
         if (!(Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(), pin))) {
@@ -108,4 +132,8 @@ public class MagmaPayAPI {
     public HashMap<Player, CountDownLatch> getCustomerRetrievalHashMap() {
         return customerRetrievalHashMap;
     }
+
+    public HashMap<Player, CountDownLatch> getPinRetrievalHashMap() { return pinRetrievalHashMap; }
+
+    public HashMap<Player, String> getRetrievedPin() { return retrievedPin; }
 }

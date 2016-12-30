@@ -50,6 +50,8 @@ public class LocalConfig {
     private String messageCreateUserEmailError;
     private String messageCreateUserPinError;
 
+    private String messagePinRetrieveEnterPin;
+
     public LocalConfig(MagmaPay magmaPay) {
         magmaPay.saveDefaultConfig();
 
@@ -124,6 +126,9 @@ public class LocalConfig {
                 .colour(config.getString("messages.create-user.errors.invalid-email"));
         messageCreateUserPinError = GeneralUtils
                 .colour(config.getString("messages.create-user.errors.invalid-pin"));
+
+        messagePinRetrieveEnterPin = GeneralUtils
+                .colour(config.getString("messages.pin-retrieval.prompts.enter-pin"));
     }
 
     public boolean isCollectBillingAddress() { return collectBillingAddress; }
@@ -181,4 +186,6 @@ public class LocalConfig {
     public String getMessageCreateUserEmailError() { return messageCreateUserEmailError; }
 
     public String getMessageCreateUserPinError() { return messageCreateUserPinError; }
+
+    public String getMessagePinRetrieveEnterPin() { return messagePinRetrieveEnterPin; }
 }
