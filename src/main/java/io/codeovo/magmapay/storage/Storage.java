@@ -58,7 +58,7 @@ public class Storage {
         try {
             connection = pool.getConnection();
 
-            String statement = "CREATE TABLE IF NOT EXISTS mp_players(player_uuid VARCHAR(36) PRIMARY KEY, stripe_token VARCHAR(36), pin_hash VARCHAR(128))";
+            String statement = "CREATE TABLE IF NOT EXISTS mp_players(player_uuid VARCHAR(36) PRIMARY KEY, stripe_token VARCHAR(36), pin_hash CHAR(60))";
             preparedStatement = connection.prepareStatement(statement);
             preparedStatement.execute();
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class Storage {
         Bukkit.getScheduler().runTaskAsynchronously(MagmaPay.getInstance(), new Runnable() {
             @Override
             public void run() {
-                addUserLocal(playerUUID, stripeToken, Encryption.securePass(pinToken));
+                addUserLocal(playerUUID, stripeToken, pinToken);
             }
         });
     }

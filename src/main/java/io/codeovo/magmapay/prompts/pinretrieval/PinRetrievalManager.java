@@ -30,6 +30,7 @@ public class PinRetrievalManager {
             return;
         }
 
+        removePlayer(p);
         MagmaPay.getMagmaPayAPI().getRetrievedPin().put(p, message);
         MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
     }
