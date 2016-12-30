@@ -57,7 +57,7 @@ public class CacheManager {
             LocalPlayer localPlayer = entry.getValue();
             Player p = entry.getKey();
 
-            magmaPay.getLocalStorage().addUser(p.getUniqueId(), localPlayer.getStripeToken(),
+            magmaPay.getLocalStorage().addUserLocal(p.getUniqueId(), localPlayer.getStripeToken(),
                     localPlayer.getPinHash());
 
             localCache.remove(p);

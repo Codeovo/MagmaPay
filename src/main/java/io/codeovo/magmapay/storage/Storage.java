@@ -88,7 +88,7 @@ public class Storage {
         });
     }
 
-    private void addUserLocal(UUID playerUUID, String stripeToken, String pinToken) {
+    public void addUserLocal(UUID playerUUID, String stripeToken, String pinToken) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
