@@ -1,4 +1,3 @@
-config-version: 1
 general:
   collect-billing-address: true
 storage:
@@ -41,3 +40,4 @@ messages:
   pin-retrieval:
     prompts:
       enter-pin: "&8MagmaPay &7>> &8You initiated a charge, enter your pin to confirm it:"
+      cancel-successful: "&8MagmaPay &7>> You have successfully cancelled the pending charge."

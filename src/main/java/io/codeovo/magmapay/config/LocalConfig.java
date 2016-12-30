@@ -3,14 +3,11 @@ package io.codeovo.magmapay.config;
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.storage.StorageType;
 import io.codeovo.magmapay.utils.GeneralUtils;
-import org.bukkit.ChatColor;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class LocalConfig {
-    private MagmaPay magmaPay;
     private FileConfiguration config;
-
-    private int configVersion;
 
     private boolean collectBillingAddress;
 
@@ -43,7 +40,7 @@ public class LocalConfig {
 
     private String messageCreateUserCreating;
     private String messageCreateUserCreated;
-    private String messageCreateUserQuitSucessful;
+    private String messageCreateUserQuitSuccessful;
 
     private String messageCreateUserValidationError;
     private String messageCreateUserStripeError;
@@ -51,19 +48,17 @@ public class LocalConfig {
     private String messageCreateUserPinError;
 
     private String messagePinRetrieveEnterPin;
+    private String messagePinRetrieveCancel;
 
     public LocalConfig(MagmaPay magmaPay) {
         magmaPay.saveDefaultConfig();
 
-        this.magmaPay = magmaPay;
         this.config = magmaPay.getConfig();
 
         loadConfig();
     }
 
     private void loadConfig() {
-        configVersion = config.getInt("config-version");
-
         collectBillingAddress = config.getBoolean("general.collect-billing-address");
 
         if (config.getBoolean("storage.mysql.use")) {
@@ -115,7 +110,7 @@ public class LocalConfig {
                 .colour(config.getString("messages.create-user.prompts.creating-user"));
         messageCreateUserCreated = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.user-created"));
-        messageCreateUserQuitSucessful = GeneralUtils
+        messageCreateUserQuitSuccessful = GeneralUtils
                 .colour(config.getString("messages.create-user.prompts.quit-successful"));
 
         messageCreateUserValidationError = GeneralUtils
@@ -129,6 +124,8 @@ public class LocalConfig {
 
         messagePinRetrieveEnterPin = GeneralUtils
                 .colour(config.getString("messages.pin-retrieval.prompts.enter-pin"));
+        messagePinRetrieveCancel = GeneralUtils
+                .colour(config.getString("messages.pin-retrieval.prompts.cancel-successful"));
     }
 
     public boolean isCollectBillingAddress() { return collectBillingAddress; }
@@ -177,7 +174,7 @@ public class LocalConfig {
 
     public String getMessageCreateUserCreated() { return messageCreateUserCreated; }
 
-    public String getMessageCreateUserQuitSucessful() { return messageCreateUserQuitSucessful; }
+    public String getMessageCreateUserQuitSuccessful() { return messageCreateUserQuitSuccessful; }
 
     public String getMessageCreateUserValidationError() { return messageCreateUserValidationError; }
 
@@ -188,4 +185,6 @@ public class LocalConfig {
     public String getMessageCreateUserPinError() { return messageCreateUserPinError; }
 
     public String getMessagePinRetrieveEnterPin() { return messagePinRetrieveEnterPin; }
+
+    public String getMessagePinRetrieveCancel() { return messagePinRetrieveCancel; }
 }

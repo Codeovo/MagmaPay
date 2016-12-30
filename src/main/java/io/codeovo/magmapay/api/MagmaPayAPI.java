@@ -42,7 +42,8 @@ public class MagmaPayAPI {
             return new ChargeResponse(EarlyFailStatus.PLAYER_OFFLINE);
         }
 
-        if (customerRetrievalHashMap.containsKey(chargeRequest.getPlayer())) {
+        if (customerRetrievalHashMap.containsKey(chargeRequest.getPlayer())
+                || pinRetrievalHashMap.containsKey(chargeRequest.getPlayer())) {
             return new ChargeResponse(EarlyFailStatus.COLLECTING_DATA_FROM_PREVIOUS_CHARGE);
         }
 
@@ -85,6 +86,7 @@ public class MagmaPayAPI {
 
             if (retrievedPin.containsKey(chargeRequest.getPlayer())) {
                 pin = retrievedPin.get(chargeRequest.getPlayer());
+                retrievedPin.remove(chargeRequest.getPlayer());
             } else {
                 return new ChargeResponse(EarlyFailStatus.FAIL_DURING_DATA_RETRIEVAL);
             }

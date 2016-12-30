@@ -22,6 +22,14 @@ public class PinRetrievalManager {
     }
 
     void handleMessage(Player p, String message) {
+        if (message.equalsIgnoreCase("quit") || message.equalsIgnoreCase("cancel")) {
+            p.sendMessage(magmaPay.getLocalConfig().getMessagePinRetrieveCancel());
+
+            removePlayer(p);
+            MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
+            return;
+        }
+
         MagmaPay.getMagmaPayAPI().getRetrievedPin().put(p, message);
         MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
     }

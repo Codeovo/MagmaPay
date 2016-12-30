@@ -27,7 +27,7 @@ public class CreateUserManager {
 
     void handleMessage(final Player p, final String message) {
         if (message.equalsIgnoreCase("cancel") || message.equalsIgnoreCase("quit")) {
-            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserQuitSucessful());
+            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserQuitSuccessful());
 
             removePlayer(p);
             MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
