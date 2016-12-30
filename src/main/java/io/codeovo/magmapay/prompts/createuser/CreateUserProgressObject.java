@@ -35,7 +35,7 @@ public class CreateUserProgressObject {
         this.email = email;
     }
 
-    public String getPinHash() {
+    String getPinHash() {
         return pinHash;
     }
 

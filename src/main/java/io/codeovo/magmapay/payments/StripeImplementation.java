@@ -11,11 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StripeImplementation {
-    private MagmaPay magmaPay;
-
     public StripeImplementation (MagmaPay magmaPay) {
-        this.magmaPay = magmaPay;
-
         Stripe.apiKey = magmaPay.getLocalConfig().getStripeApiKey();
     }
 
@@ -26,8 +22,26 @@ public class StripeImplementation {
         customerParams.put("description", "Customer for " + createUserProgressObject.getEmail());
         customerParams.put("email", createUserProgressObject.getEmail());
 
-        Customer c = Customer.create(customerParams);
+        Map<String, Object> cardParams = new HashMap<>();
+        cardParams.put("object", "card");
 
+        if (MagmaPay.getInstance().getLocalConfig().isCollectBillingAddress()) {
+            cardParams.put("address_line_1", createUserProgressObject.getAddress());
+            cardParams.put("address_city", createUserProgressObject.getCity());
+            cardParams.put("address_state", createUserProgressObject.getStateOrProvince());
+            cardParams.put("address_zip", createUserProgressObject.getZip());
+            cardParams.put("address_country", createUserProgressObject.getCountry());
+        }
+
+        cardParams.put("name", createUserProgressObject.getCardName());
+        cardParams.put("number", createUserProgressObject.getCardNumber());
+        cardParams.put("exp_month", createUserProgressObject.getCardMonth());
+        cardParams.put("exp_year", createUserProgressObject.getCardYear());
+        cardParams.put("cvc", createUserProgressObject.getCardCVC());
+
+        customerParams.put("source", cardParams);
+
+        Customer c = Customer.create(customerParams);
         return c.getId();
     }
 }
