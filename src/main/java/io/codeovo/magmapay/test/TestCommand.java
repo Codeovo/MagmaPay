@@ -16,8 +16,6 @@ public class TestCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        magmaPay.getPromptManager().getCreateUserManager().addPlayer((Player) commandSender);
-
         ChargeResponse chargeResponse = MagmaPay.getMagmaPayAPI().chargePlayer(new ChargeRequest((Player) commandSender,
                 5000, "CAD", true, "Test Charge",
                 "Test Charge", "3128"));

@@ -21,7 +21,7 @@ public class PinRetrievalListener implements Listener {
         if(pinRetrievalManager.isInList(e.getPlayer())) {
             e.setCancelled(true);
 
-            pinRetrievalManager.handleMessage(e.getPlayer(), e.getMessage());
+            //pinRetrievalManager.handleMessage(e.getPlayer(), e.getMessage());
             return;
         }
 

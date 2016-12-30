@@ -55,7 +55,7 @@ public class MagmaPayAPI {
             @Override
             public ChargeResponse call() throws Exception {
                 Map<String, Object> chargeParams = new HashMap<>();
-                chargeParams.put("source", finalStripeTokenId);
+                chargeParams.put("customer", finalStripeTokenId);
 
                 chargeParams.put("amount", chargeRequest.getAmountToCharge());
                 chargeParams.put("currency", chargeRequest.getIsoCurrency());
