@@ -10,14 +10,10 @@ public class ChargeRequest {
     private String chargeDescription;
     private String statementDescriptor;
 
-    private boolean pinProvided;
     private String providedPin;
 
-    private int applicationFee;
-    private String destinationAccount;
-
     public ChargeRequest(Player player, int amountToCharge, String isoCurrency, boolean chargeImmediately,
-                         String chargeDescription, String statementDescriptor) {
+                         String chargeDescription, String statementDescriptor, String providedPin) {
         this.player = player;
         this.amountToCharge = amountToCharge;
         this.isoCurrency = isoCurrency;
@@ -25,8 +21,8 @@ public class ChargeRequest {
         this.chargeDescription = chargeDescription;
         this.statementDescriptor = statementDescriptor;
 
-        this.pinProvided = false;
         this.chargeImmediately = chargeImmediately;
+        this.providedPin = providedPin;
     }
 
     public Player getPlayer() { return player; }
@@ -49,27 +45,5 @@ public class ChargeRequest {
         return statementDescriptor;
     }
 
-    public boolean isPinProvided() { return pinProvided; }
-
-    public void setPinProvided(boolean pinProvided) { this.pinProvided = pinProvided; }
-
     public String getProvidedPin() { return providedPin; }
-
-    public void setProvidedPin(String providedPin) { this.providedPin = providedPin; }
-
-    public int getApplicationFee() {
-        return applicationFee;
-    }
-
-    public void setApplicationFee(int applicationFee) {
-        this.applicationFee = applicationFee;
-    }
-
-    public String getDestinationAccount() {
-        return destinationAccount;
-    }
-
-    public void setDestinationAccount(String destinationAccount) {
-        this.destinationAccount = destinationAccount;
-    }
 }

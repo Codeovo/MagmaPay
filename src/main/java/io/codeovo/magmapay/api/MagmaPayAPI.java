@@ -6,6 +6,7 @@ import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.utils.Encryption;
+import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class MagmaPayAPI {
 
         String pinHash = "";
 
-        if (chargeRequest.isPinProvided()) {
+        if (chargeRequest.getProvidedPin() != null) {
             pinHash = magmaPay.getExecutorServiceManager().getHashedPin(chargeRequest.getProvidedPin());
         } else {
 
@@ -39,6 +40,12 @@ public class MagmaPayAPI {
 
         if (!Encryption.isSame(magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getPinHash(),
                 pinHash)) {
+
+
+            // DEBUG
+            Bukkit.getLogger().info("HIT");
+
+
             return null;
         }
 
