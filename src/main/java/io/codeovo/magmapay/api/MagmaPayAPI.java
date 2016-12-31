@@ -117,6 +117,10 @@ public class MagmaPayAPI {
 
                 Charge c =  Charge.create(chargeParams);
 
+                if (c == null) {
+                    return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
+                }
+
                 return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
                         c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
                         c.getFraudDetails().getUserReport());

@@ -5,7 +5,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.LocalPlayer;
-import io.codeovo.magmapay.utils.Encryption;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
