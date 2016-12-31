@@ -69,7 +69,7 @@ public class CreateUserManager {
                         p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserAddress());
                     } else {
                         progressObject.setUserStep(CreateUserStep.CC_NAME);
-                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCardNumber());
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserName());
                     }
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
