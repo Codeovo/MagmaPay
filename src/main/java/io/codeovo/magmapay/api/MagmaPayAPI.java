@@ -146,6 +146,10 @@ public class MagmaPayAPI {
 
     public void registerPlayer(Player p, RegisterPlayer toRegister) throws CardException, APIException,
             AuthenticationException, InvalidRequestException, APIConnectionException {
+        if (!p.isOnline()) {
+            return;
+        }
+
         String customerID = StripeImplementation.createCustomerAPI(toRegister);
 
         magmaPay.getCacheManager()
