@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class LocalConfig {
     private FileConfiguration config;
 
+    private boolean useWebHooks;
     private boolean collectBillingAddress;
 
     private StorageType storageType;
@@ -59,6 +60,7 @@ public class LocalConfig {
     }
 
     private void loadConfig() {
+        useWebHooks = config.getBoolean("general.use-webhooks");
         collectBillingAddress = config.getBoolean("general.collect-billing-address");
 
         if (config.getBoolean("storage.mysql.use")) {
@@ -127,6 +129,8 @@ public class LocalConfig {
         messagePinRetrieveCancel = GeneralUtils
                 .colour(config.getString("messages.pin-retrieval.prompts.cancel-successful"));
     }
+
+    public boolean isUseWebHooks() { return useWebHooks; }
 
     public boolean isCollectBillingAddress() { return collectBillingAddress; }
 

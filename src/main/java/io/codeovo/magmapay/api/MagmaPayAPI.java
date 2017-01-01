@@ -156,6 +156,8 @@ public class MagmaPayAPI {
                 .addPlayer(p, new LocalPlayer(customerID, toRegister.getPin()));
     }
 
+    public boolean areWebHooksEnabled() { return magmaPay.getLocalConfig().isUseWebHooks(); }
+
     public HashMap<Player, CountDownLatch> getCustomerRetrievalHashMap() {
         return customerRetrievalHashMap;
     }

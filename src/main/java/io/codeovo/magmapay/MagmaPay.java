@@ -8,6 +8,7 @@ import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.prompts.PromptManager;
 import io.codeovo.magmapay.storage.Storage;
 
+import io.codeovo.magmapay.webhooks.WebhookManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MagmaPay extends JavaPlugin {
@@ -22,6 +23,8 @@ public class MagmaPay extends JavaPlugin {
     private PromptManager promptManager;
 
     private StripeImplementation stripeImplementation;
+
+    private WebhookManager webhookManager;
 
     @Override
     public void onEnable() {
@@ -38,6 +41,10 @@ public class MagmaPay extends JavaPlugin {
 
         stripeImplementation = new StripeImplementation(this);
         magmaPayAPI = new MagmaPayAPI(this);
+
+        if (localConfig.isUseWebHooks()) {
+            webhookManager = new WebhookManager(this);
+        }
 
         getLogger().info("MagmaPay - Enabled.");
     }
@@ -64,4 +71,6 @@ public class MagmaPay extends JavaPlugin {
     public PromptManager getPromptManager() { return promptManager; }
 
     public StripeImplementation getStripeImplementation() { return stripeImplementation; }
+
+    public WebhookManager getWebhookManager() { return webhookManager; }
 }

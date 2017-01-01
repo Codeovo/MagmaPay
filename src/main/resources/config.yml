@@ -1,4 +1,5 @@
 general:
+  use-webhooks: false
   collect-billing-address: true
 storage:
   mysql:
