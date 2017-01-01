@@ -1,11 +1,15 @@
 package io.codeovo.magmapay.api;
 
+import com.stripe.exception.*;
 import com.stripe.model.Charge;
 
 import io.codeovo.magmapay.MagmaPay;
+import io.codeovo.magmapay.objects.LocalPlayer;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.objects.charges.EarlyFailStatus;
+import io.codeovo.magmapay.objects.registerplayer.RegisterPlayer;
+import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.utils.Encryption;
 
 import org.bukkit.entity.Player;
@@ -133,7 +137,19 @@ public class MagmaPayAPI {
             e.printStackTrace();
         }
 
-        return null;
+        return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
+    }
+
+    public boolean checkIfPlayerIsRegistered(Player p) {
+        return magmaPay.getCacheManager().isInCache(p);
+    }
+
+    public void registerPlayer(Player p, RegisterPlayer toRegister) throws CardException, APIException,
+            AuthenticationException, InvalidRequestException, APIConnectionException {
+        String customerID = StripeImplementation.createCustomerAPI(toRegister);
+
+        magmaPay.getCacheManager()
+                .addPlayer(p, new LocalPlayer(customerID, toRegister.getPin()));
     }
 
     public HashMap<Player, CountDownLatch> getCustomerRetrievalHashMap() {

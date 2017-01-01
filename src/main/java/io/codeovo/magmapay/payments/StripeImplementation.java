@@ -5,6 +5,7 @@ import com.stripe.exception.*;
 import com.stripe.model.Customer;
 
 import io.codeovo.magmapay.MagmaPay;
+import io.codeovo.magmapay.objects.registerplayer.RegisterPlayer;
 import io.codeovo.magmapay.prompts.createuser.CreateUserProgressObject;
 
 import java.util.HashMap;
@@ -38,6 +39,36 @@ public class StripeImplementation {
         cardParams.put("exp_month", createUserProgressObject.getCardMonth());
         cardParams.put("exp_year", createUserProgressObject.getCardYear());
         cardParams.put("cvc", createUserProgressObject.getCardCVC());
+
+        customerParams.put("source", cardParams);
+
+        Customer c = Customer.create(customerParams);
+        return c.getId();
+    }
+
+    public static String createCustomerAPI(RegisterPlayer registerPlayer)
+            throws CardException, APIException, AuthenticationException,
+            InvalidRequestException, APIConnectionException {
+        Map<String, Object> customerParams = new HashMap<>();
+        customerParams.put("description", "Customer for " + registerPlayer.getEmail());
+        customerParams.put("email", registerPlayer.getEmail());
+
+        Map<String, Object> cardParams = new HashMap<>();
+        cardParams.put("object", "card");
+
+        if (registerPlayer.getAddress() != null) {
+            cardParams.put("address_line_1", registerPlayer.getAddress());
+            cardParams.put("address_city", registerPlayer.getCity());
+            cardParams.put("address_state", registerPlayer.getStateOrProvince());
+            cardParams.put("address_zip", registerPlayer.getZip());
+            cardParams.put("address_country", registerPlayer.getCountry());
+        }
+
+        cardParams.put("name", registerPlayer.getCardName());
+        cardParams.put("number", registerPlayer.getCardNumber());
+        cardParams.put("exp_month", registerPlayer.getCardMonth());
+        cardParams.put("exp_year", registerPlayer.getCardYear());
+        cardParams.put("cvc", registerPlayer.getCardCVC());
 
         customerParams.put("source", cardParams);
 
