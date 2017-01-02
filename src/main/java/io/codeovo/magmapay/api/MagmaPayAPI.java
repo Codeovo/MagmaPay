@@ -5,6 +5,7 @@ import com.stripe.model.Charge;
 
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.LocalPlayer;
+import io.codeovo.magmapay.objects.balance.AccountBalance;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.objects.charges.EarlyFailStatus;
@@ -145,6 +146,8 @@ public class MagmaPayAPI {
         magmaPay.getCacheManager()
                 .addPlayer(p, new LocalPlayer(customerID, toRegister.getPin()));
     }
+
+    public AccountBalance getBalances() { return StripeImplementation.getBalances(); }
 
     public boolean areWebHooksEnabled() { return magmaPay.getLocalConfig().isUseWebHooks(); }
 }
