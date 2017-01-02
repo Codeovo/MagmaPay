@@ -16,14 +16,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(final PlayerJoinEvent e) {
-        Bukkit.getScheduler().runTaskAsynchronously(MagmaPay.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                LocalPlayer localPlayer = magmaPay.getLocalStorage().getPlayerData(e.getPlayer());
+        Bukkit.getScheduler().runTaskAsynchronously(MagmaPay.getInstance(), () -> {
+            LocalPlayer localPlayer = magmaPay.getLocalStorage().getPlayerData(e.getPlayer());
 
-                if (localPlayer.getPinHash() != null && localPlayer.getStripeToken() != null) {
-                    magmaPay.getCacheManager().addPlayer(e.getPlayer(), localPlayer);
-                }
+            if (localPlayer.getPinHash() != null && localPlayer.getStripeToken() != null) {
+                magmaPay.getCacheManager().addPlayer(e.getPlayer(), localPlayer);
             }
         });
     }

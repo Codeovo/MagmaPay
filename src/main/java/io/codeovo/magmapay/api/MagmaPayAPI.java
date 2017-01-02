@@ -21,20 +21,10 @@ import java.util.concurrent.*;
 public class MagmaPayAPI {
     private MagmaPay magmaPay;
 
-    private HashMap<Player, CountDownLatch> customerRetrievalHashMap;
-
-    private HashMap<Player, CountDownLatch> pinRetrievalHashMap;
-    private HashMap<Player, String> retrievedPin;
-
     private ExecutorService executorService;
 
     public MagmaPayAPI(MagmaPay magmaPay) {
         this.magmaPay = magmaPay;
-
-        this.customerRetrievalHashMap = new HashMap<>();
-
-        this.pinRetrievalHashMap = new HashMap<>();
-        this.retrievedPin = new HashMap<>();
 
         this.executorService = Executors.newCachedThreadPool();
     }
@@ -46,22 +36,24 @@ public class MagmaPayAPI {
             return new ChargeResponse(EarlyFailStatus.PLAYER_OFFLINE);
         }
 
-        if (customerRetrievalHashMap.containsKey(chargeRequest.getPlayer())
-                || pinRetrievalHashMap.containsKey(chargeRequest.getPlayer())) {
+        if (magmaPay.getCacheManager().getCustomerRetrievalHashMap().containsKey(chargeRequest.getPlayer())
+                || magmaPay.getCacheManager().getPinRetrievalHashMap().containsKey(chargeRequest.getPlayer())) {
             return new ChargeResponse(EarlyFailStatus.COLLECTING_DATA_FROM_PREVIOUS_CHARGE);
         }
 
         if (!magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
-            customerRetrievalHashMap.put(chargeRequest.getPlayer(), new CountDownLatch(1));
+            magmaPay.getCacheManager().getCustomerRetrievalHashMap().put(chargeRequest.getPlayer(),
+                    new CountDownLatch(1));
+
             try {
                 magmaPay.getPromptManager().getCreateUserManager().addPlayer(chargeRequest.getPlayer());
-                customerRetrievalHashMap.get(chargeRequest.getPlayer()).await();
+                magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(chargeRequest.getPlayer()).await();
             } catch (InterruptedException e) {
-                customerRetrievalHashMap.remove(chargeRequest.getPlayer());
+                magmaPay.getCacheManager().getCustomerRetrievalHashMap().remove(chargeRequest.getPlayer());
                 return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
             }
 
-            customerRetrievalHashMap.remove(chargeRequest.getPlayer());
+            magmaPay.getCacheManager().getCustomerRetrievalHashMap().remove(chargeRequest.getPlayer());
 
             if (magmaPay.getCacheManager().isInCache(chargeRequest.getPlayer())) {
                 stripeTokenId = magmaPay.getCacheManager().getPlayer(chargeRequest.getPlayer()).getStripeToken();
@@ -77,21 +69,22 @@ public class MagmaPayAPI {
         if (chargeRequest.getProvidedPin() != null) {
             pin = chargeRequest.getProvidedPin();
         } else {
-            pinRetrievalHashMap.put(chargeRequest.getPlayer(), new CountDownLatch(  1));
+            magmaPay.getCacheManager().getPinRetrievalHashMap().put(chargeRequest.getPlayer(),
+                    new CountDownLatch(  1));
 
             try {
                 magmaPay.getPromptManager().getPinRetrievalManager().addPlayer(chargeRequest.getPlayer());
-                pinRetrievalHashMap.get(chargeRequest.getPlayer()).await();
+                magmaPay.getCacheManager().getPinRetrievalHashMap().get(chargeRequest.getPlayer()).await();
             } catch (InterruptedException e) {
-                pinRetrievalHashMap.remove(chargeRequest.getPlayer());
+                magmaPay.getCacheManager().getPinRetrievalHashMap().remove(chargeRequest.getPlayer());
                 return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
             }
 
-            pinRetrievalHashMap.remove(chargeRequest.getPlayer());
+            magmaPay.getCacheManager().getPinRetrievalHashMap().remove(chargeRequest.getPlayer());
 
-            if (retrievedPin.containsKey(chargeRequest.getPlayer())) {
-                pin = retrievedPin.get(chargeRequest.getPlayer());
-                retrievedPin.remove(chargeRequest.getPlayer());
+            if (magmaPay.getCacheManager().getRetrievedPin().containsKey(chargeRequest.getPlayer())) {
+                pin = magmaPay.getCacheManager().getRetrievedPin().get(chargeRequest.getPlayer());
+                magmaPay.getCacheManager().getRetrievedPin().remove(chargeRequest.getPlayer());
             } else {
                 return new ChargeResponse(EarlyFailStatus.FAIL_DURING_DATA_RETRIEVAL);
             }
@@ -103,32 +96,29 @@ public class MagmaPayAPI {
 
         final String finalStripeTokenId = stripeTokenId;
 
-        Future<ChargeResponse> future = executorService.submit(new Callable<ChargeResponse>() {
-            @Override
-            public ChargeResponse call() throws Exception {
-                Map<String, Object> chargeParams = new HashMap<>();
-                chargeParams.put("customer", finalStripeTokenId);
+        Future<ChargeResponse> future = executorService.submit(() -> {
+            Map<String, Object> chargeParams = new HashMap<>();
+            chargeParams.put("customer", finalStripeTokenId);
 
-                chargeParams.put("amount", chargeRequest.getAmountToCharge());
-                chargeParams.put("currency", chargeRequest.getIsoCurrency());
+            chargeParams.put("amount", chargeRequest.getAmountToCharge());
+            chargeParams.put("currency", chargeRequest.getIsoCurrency());
 
-                if (!chargeRequest.isChargeImmediately()) {
-                    chargeParams.put("capture", false);
-                }
-
-                chargeParams.put("description", chargeRequest.getChargeDescription());
-                chargeParams.put("statement_descriptor", chargeRequest.getStatementDescriptor());
-
-                Charge c =  Charge.create(chargeParams);
-
-                if (c == null) {
-                    return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
-                }
-
-                return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
-                        c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
-                        c.getFraudDetails().getUserReport());
+            if (!chargeRequest.isChargeImmediately()) {
+                chargeParams.put("capture", false);
             }
+
+            chargeParams.put("description", chargeRequest.getChargeDescription());
+            chargeParams.put("statement_descriptor", chargeRequest.getStatementDescriptor());
+
+            Charge c =  Charge.create(chargeParams);
+
+            if (c == null) {
+                return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
+            }
+
+            return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
+                    c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
+                    c.getFraudDetails().getUserReport());
         });
 
         try {
@@ -157,12 +147,4 @@ public class MagmaPayAPI {
     }
 
     public boolean areWebHooksEnabled() { return magmaPay.getLocalConfig().isUseWebHooks(); }
-
-    public HashMap<Player, CountDownLatch> getCustomerRetrievalHashMap() {
-        return customerRetrievalHashMap;
-    }
-
-    public HashMap<Player, CountDownLatch> getPinRetrievalHashMap() { return pinRetrievalHashMap; }
-
-    public HashMap<Player, String> getRetrievedPin() { return retrievedPin; }
 }

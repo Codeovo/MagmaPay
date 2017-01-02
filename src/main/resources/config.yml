@@ -1,5 +1,7 @@
 general:
-  use-webhooks: false
+  webhooks:
+    use: false
+    path: "/webhooks"
   collect-billing-address: true
 storage:
   mysql:

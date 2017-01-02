@@ -22,7 +22,8 @@ public class CreateUserManager {
         this.magmaPay = magmaPay;
         this.createUserMap = new HashMap<>();
 
-        Bukkit.getServer().getPluginManager().registerEvents(new CreateUserListener(this), magmaPay);
+        Bukkit.getServer().getPluginManager().registerEvents(new CreateUserListener(magmaPay, this),
+                magmaPay);
     }
 
     void handleMessage(final Player p, final String message) {
@@ -30,7 +31,7 @@ public class CreateUserManager {
             p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserQuitSuccessful());
 
             removePlayer(p);
-            MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
+            magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(p).countDown();
             return;
         }
 
@@ -49,7 +50,8 @@ public class CreateUserManager {
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserEmailError());
                     removePlayer(p);
-                    MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
+
+                    magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(p).countDown();
                 }
 
                 break;
@@ -57,12 +59,8 @@ public class CreateUserManager {
                 boolean isValidPin = ValidationUtils.validatePin(message);
 
                 if (isValidPin) {
-                    Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
-                        @Override
-                        public void run() {
-                            progressObject.setPinHash(Encryption.securePass(message));
-                        }
-                    });
+                    Bukkit.getScheduler().runTaskAsynchronously(magmaPay,
+                            () -> progressObject.setPinHash(Encryption.securePass(message)));
 
                     if (magmaPay.getLocalConfig().isCollectBillingAddress()) {
                         progressObject.setUserStep(CreateUserStep.ADDRESS);
@@ -74,7 +72,8 @@ public class CreateUserManager {
                 } else {
                     p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserPinError());
                     removePlayer(p);
-                    MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
+
+                    magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(p).countDown();
                 }
 
                 break;
@@ -148,26 +147,23 @@ public class CreateUserManager {
                 p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreating());
                 removePlayer(p);
 
-                Bukkit.getScheduler().runTaskAsynchronously(magmaPay, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            String customerID = StripeImplementation.createCustomer(progressObject);
+                Bukkit.getScheduler().runTaskAsynchronously(magmaPay, () -> {
+                    try {
+                        String customerID = StripeImplementation.createCustomer(progressObject);
 
-                            magmaPay.getCacheManager()
-                                    .addPlayer(p, new LocalPlayer(customerID, progressObject.getPinHash()));
+                        magmaPay.getCacheManager()
+                                .addPlayer(p, new LocalPlayer(customerID, progressObject.getPinHash()));
 
-                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreated());
-                        } catch (CardException | AuthenticationException e) {
-                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserValidationError()
-                                    .replace("<error>", e.getMessage()));
-                        } catch (APIException | InvalidRequestException | APIConnectionException e) {
-                            p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
-                                    .replace("<error>", e.getMessage()));
-                        }
-
-                        MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(p).countDown();
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserCreated());
+                    } catch (CardException | AuthenticationException e) {
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserValidationError()
+                                .replace("<error>", e.getMessage()));
+                    } catch (APIException | InvalidRequestException | APIConnectionException e) {
+                        p.sendMessage(magmaPay.getLocalConfig().getMessageCreateUserStripeError()
+                                .replace("<error>", e.getMessage()));
                     }
+
+                    magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(p).countDown();
                 });
 
         }

@@ -12,9 +12,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.Iterator;
 
 public class PinRetrievalListener implements Listener {
+    private MagmaPay magmaPay;
     private PinRetrievalManager pinRetrievalManager;
 
-    PinRetrievalListener(PinRetrievalManager pinRetrievalManager) {
+    PinRetrievalListener(MagmaPay magmaPay, PinRetrievalManager pinRetrievalManager) {
+        this.magmaPay = magmaPay;
         this.pinRetrievalManager = pinRetrievalManager;
     }
 
@@ -28,8 +30,8 @@ public class PinRetrievalListener implements Listener {
         }
 
         for(final Iterator<Player> it = e.getRecipients().iterator(); it.hasNext();) {
-
             final Player p = it.next();
+
             if(pinRetrievalManager.isInList(p)) {
                 it.remove();
             }
@@ -41,7 +43,7 @@ public class PinRetrievalListener implements Listener {
         if(pinRetrievalManager.isInList(e.getPlayer())) {
             pinRetrievalManager.removePlayer(e.getPlayer());
 
-            MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(e.getPlayer()).countDown();
+            magmaPay.getCacheManager().getPinRetrievalHashMap().get(e.getPlayer()).countDown();
         }
     }
 }

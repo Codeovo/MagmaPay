@@ -11,9 +11,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.Iterator;
 
 public class CreateUserListener implements Listener {
+    private MagmaPay magmaPay;
     private CreateUserManager createUserManager;
 
-    CreateUserListener(CreateUserManager createUserManager) {
+    CreateUserListener(MagmaPay magmaPay, CreateUserManager createUserManager) {
+        this.magmaPay = magmaPay;
         this.createUserManager = createUserManager;
     }
 
@@ -27,7 +29,6 @@ public class CreateUserListener implements Listener {
         }
 
         for(final Iterator<Player> it = e.getRecipients().iterator(); it.hasNext();) {
-
             final Player p = it.next();
             if(createUserManager.isInMap(p)) {
                 it.remove();
@@ -40,7 +41,7 @@ public class CreateUserListener implements Listener {
         if(createUserManager.isInMap(e.getPlayer())) {
             createUserManager.removePlayer(e.getPlayer());
 
-            MagmaPay.getMagmaPayAPI().getCustomerRetrievalHashMap().get(e.getPlayer()).countDown();
+            magmaPay.getCacheManager().getCustomerRetrievalHashMap().get(e.getPlayer()).countDown();
         }
     }
 }

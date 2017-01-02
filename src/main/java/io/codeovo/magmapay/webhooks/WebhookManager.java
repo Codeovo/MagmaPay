@@ -1,5 +1,6 @@
 package io.codeovo.magmapay.webhooks;
 
+import com.stripe.model.Dispute;
 import io.codeovo.magmapay.MagmaPay;
 
 import com.stripe.exception.StripeException;
@@ -24,7 +25,7 @@ public class WebhookManager {
     }
 
     private void monitor() {
-        post("/webhooks", (request, response) -> {
+        post(magmaPay.getLocalConfig().getWebhooksPath(), (request, response) -> {
             Event eventInJson;
 
             try {
@@ -64,6 +65,13 @@ public class WebhookManager {
                 response.status(e.getStatusCode());
 
                 return failedError;
+            }
+
+            org.bukkit.event.Event toThrow;
+
+            switch(event.getType()) {
+                case "charge.dispute.created":
+                    Dispute dispute = (Dispute) event.getData().getObject();
             }
 
             response.status(HttpStatus.SC_OK);

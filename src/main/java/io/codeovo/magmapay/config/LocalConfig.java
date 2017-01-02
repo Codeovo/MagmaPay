@@ -10,6 +10,8 @@ public class LocalConfig {
     private FileConfiguration config;
 
     private boolean useWebHooks;
+    private String webhooksPath;
+
     private boolean collectBillingAddress;
 
     private StorageType storageType;
@@ -60,7 +62,9 @@ public class LocalConfig {
     }
 
     private void loadConfig() {
-        useWebHooks = config.getBoolean("general.use-webhooks");
+        useWebHooks = config.getBoolean("general.webhooks.use");
+        webhooksPath = config.getString("general.webhooks.path");
+
         collectBillingAddress = config.getBoolean("general.collect-billing-address");
 
         if (config.getBoolean("storage.mysql.use")) {
@@ -131,6 +135,8 @@ public class LocalConfig {
     }
 
     public boolean isUseWebHooks() { return useWebHooks; }
+
+    public String getWebhooksPath() { return webhooksPath; }
 
     public boolean isCollectBillingAddress() { return collectBillingAddress; }
 

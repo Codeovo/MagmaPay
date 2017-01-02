@@ -18,7 +18,7 @@ public class PinRetrievalManager {
         this.pinRetrievalList = new ArrayList<>();
 
         Bukkit.getServer().getPluginManager()
-                .registerEvents(new PinRetrievalListener(this), magmaPay);
+                .registerEvents(new PinRetrievalListener(magmaPay, this), magmaPay);
     }
 
     void handleMessage(Player p, String message) {
@@ -26,13 +26,15 @@ public class PinRetrievalManager {
             p.sendMessage(magmaPay.getLocalConfig().getMessagePinRetrieveCancel());
 
             removePlayer(p);
-            MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
+            magmaPay.getCacheManager().getPinRetrievalHashMap().get(p).countDown();
+
             return;
         }
 
         removePlayer(p);
-        MagmaPay.getMagmaPayAPI().getRetrievedPin().put(p, message);
-        MagmaPay.getMagmaPayAPI().getPinRetrievalHashMap().get(p).countDown();
+
+        magmaPay.getCacheManager().getRetrievedPin().put(p, message);
+        magmaPay.getCacheManager().getPinRetrievalHashMap().get(p).countDown();
     }
 
     public void addPlayer(Player p) {
