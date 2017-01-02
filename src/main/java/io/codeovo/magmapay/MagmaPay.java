@@ -4,12 +4,15 @@ import io.codeovo.magmapay.api.MagmaPayAPI;
 import io.codeovo.magmapay.cache.CacheManager;
 import io.codeovo.magmapay.config.LocalConfig;
 import io.codeovo.magmapay.listeners.PlayerListener;
+import io.codeovo.magmapay.metrics.Metrics;
 import io.codeovo.magmapay.payments.StripeImplementation;
 import io.codeovo.magmapay.prompts.PromptManager;
 import io.codeovo.magmapay.storage.Storage;
 
 import io.codeovo.magmapay.webhooks.WebhookManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 public class MagmaPay extends JavaPlugin {
     private static MagmaPay magmaPay;
@@ -45,6 +48,11 @@ public class MagmaPay extends JavaPlugin {
         if (localConfig.isUseWebHooks()) {
             webhookManager = new WebhookManager(this);
         }
+
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException ignored) {}
 
         getLogger().info("MagmaPay - Enabled.");
     }
