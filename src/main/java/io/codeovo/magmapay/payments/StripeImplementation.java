@@ -3,11 +3,14 @@ package io.codeovo.magmapay.payments;
 import com.stripe.Stripe;
 import com.stripe.exception.*;
 import com.stripe.model.Balance;
+import com.stripe.model.Charge;
 import com.stripe.model.Customer;
 
 import com.stripe.model.Money;
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.balance.AccountBalance;
+import io.codeovo.magmapay.objects.charges.ChargeResponse;
+import io.codeovo.magmapay.objects.charges.EarlyFailStatus;
 import io.codeovo.magmapay.objects.registerplayer.RegisterPlayer;
 import io.codeovo.magmapay.prompts.createuser.CreateUserProgressObject;
 
@@ -17,6 +20,27 @@ import java.util.Map;
 public class StripeImplementation {
     public StripeImplementation (MagmaPay magmaPay) {
         Stripe.apiKey = magmaPay.getLocalConfig().getStripeApiKey();
+    }
+
+    public static ChargeResponse captureCharge(String chargeID) {
+        try {
+            Charge c = Charge.retrieve(chargeID);
+            c.capture();
+
+            return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
+                    c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
+                    c.getFraudDetails().getUserReport());
+        } catch (AuthenticationException e) {
+            return new ChargeResponse(EarlyFailStatus.STRIPE_AUTHENTICATION_EXCEPTION);
+        } catch (InvalidRequestException e) {
+            return new ChargeResponse(EarlyFailStatus.STRIPE_INVALID_REQUEST_EXCEPTION);
+        } catch (CardException e) {
+            return new ChargeResponse(EarlyFailStatus.STRIPE_CARD_EXCEPTION);
+        } catch (APIConnectionException e) {
+            return new ChargeResponse(EarlyFailStatus.STRIPE_API_CONNECTION_EXCEPTION);
+        } catch (APIException e) {
+            return new ChargeResponse(EarlyFailStatus.STRIPE_API_EXCEPTION);
+        }
     }
 
     public static String createCustomer(CreateUserProgressObject createUserProgressObject)

@@ -6,7 +6,7 @@
 
     <groupId>io.codeovo.magmapay</groupId>
     <artifactId>magma-pay</artifactId>
-    <version>0.2.2</version>
+    <version>0.3.0</version>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

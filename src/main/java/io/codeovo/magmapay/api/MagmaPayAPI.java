@@ -131,8 +131,18 @@ public class MagmaPayAPI {
         return new ChargeResponse(EarlyFailStatus.DATA_RETRIEVAL_ERROR);
     }
 
+    public ChargeResponse captureCharge(String chargeID) { return StripeImplementation.captureCharge(chargeID); }
+
     public boolean checkIfPlayerIsRegistered(Player p) {
         return magmaPay.getCacheManager().isInCache(p);
+    }
+
+    public String getPlayerCustomerID(Player p) {
+        if (magmaPay.getCacheManager().isInCache(p)) {
+            return magmaPay.getCacheManager().getPlayer(p).getStripeToken();
+        } else {
+            return null;
+        }
     }
 
     public void registerPlayer(Player p, RegisterPlayer toRegister) throws CardException, APIException,
