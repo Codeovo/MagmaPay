@@ -6,6 +6,7 @@ import com.stripe.model.Charge;
 import io.codeovo.magmapay.MagmaPay;
 import io.codeovo.magmapay.objects.LocalPlayer;
 import io.codeovo.magmapay.objects.balance.AccountBalance;
+import io.codeovo.magmapay.objects.charges.ChargeDataResponse;
 import io.codeovo.magmapay.objects.charges.ChargeRequest;
 import io.codeovo.magmapay.objects.charges.ChargeResponse;
 import io.codeovo.magmapay.objects.charges.EarlyFailStatus;
@@ -29,6 +30,8 @@ public class MagmaPayAPI {
 
         this.executorService = Executors.newCachedThreadPool();
     }
+
+    // CHARGE RELATED METHODS
 
     public ChargeResponse chargePlayer(final ChargeRequest chargeRequest) {
         String stripeTokenId;
@@ -119,7 +122,7 @@ public class MagmaPayAPI {
 
             return new ChargeResponse(c.getId(), c.getStatus(), c.getCaptured(), c.getCreated(),
                     c.getFailureCode(), c.getFailureMessage(), c.getFraudDetails().getStripeReport(),
-                    c.getFraudDetails().getUserReport());
+                    c.getFraudDetails().getUserReport(), c);
         });
 
         try {
@@ -132,6 +135,12 @@ public class MagmaPayAPI {
     }
 
     public ChargeResponse captureCharge(String chargeID) { return StripeImplementation.captureCharge(chargeID); }
+
+    public ChargeDataResponse getChargeInformation(String chargeID) {
+        return StripeImplementation.retrieveCharge(chargeID);
+    }
+
+    // PLAYER RELATED METHODS
 
     public boolean checkIfPlayerIsRegistered(Player p) {
         return magmaPay.getCacheManager().isInCache(p);
@@ -157,7 +166,11 @@ public class MagmaPayAPI {
                 .addPlayer(p, new LocalPlayer(customerID, toRegister.getPin()));
     }
 
+    // MAIN ACCOUNT RELATED METHODS
+
     public AccountBalance getBalances() { return StripeImplementation.getBalances(); }
+
+    // PLUGIN RELATED METHODS
 
     public boolean areWebHooksEnabled() { return magmaPay.getLocalConfig().isUseWebHooks(); }
 }

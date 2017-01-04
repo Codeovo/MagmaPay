@@ -1,5 +1,7 @@
 package io.codeovo.magmapay.objects.charges;
 
+import com.stripe.model.Charge;
+
 public class ChargeResponse {
     private EarlyFailStatus earlyFailStatus;
 
@@ -14,13 +16,15 @@ public class ChargeResponse {
     private String stripeFraudReport;
     private String stripeUserReport;
 
+    private Charge stripeChargeObject;
+
     public ChargeResponse(EarlyFailStatus earlyFailStatus) {
         this.earlyFailStatus = earlyFailStatus;
     }
 
     public ChargeResponse(String chargeId, String status, boolean captured,
                           long createdStamp, String failureCode, String failureMessage,
-                          String stripeFraudReport, String stripeUserReport) {
+                          String stripeFraudReport, String stripeUserReport, Charge stripeChargeObject) {
         this.earlyFailStatus = null;
 
         this.chargeId = chargeId;
@@ -33,6 +37,8 @@ public class ChargeResponse {
 
         this.stripeFraudReport = stripeFraudReport;
         this.stripeUserReport = stripeUserReport;
+
+        this.stripeChargeObject = stripeChargeObject;
     }
 
     public EarlyFailStatus getEarlyFailStatus() { return earlyFailStatus; }
@@ -52,4 +58,6 @@ public class ChargeResponse {
     public String getStripeFraudReport() { return stripeFraudReport; }
 
     public String getStripeUserReport() { return stripeUserReport; }
+
+    public Charge getStripeChargeObject() { return stripeChargeObject; }
 }
